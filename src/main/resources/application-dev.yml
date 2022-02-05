@@ -1,0 +1,10 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /butin-api/dev
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      min-spare: 30
+      max: 200
+    connection-timeout: 5000ms
