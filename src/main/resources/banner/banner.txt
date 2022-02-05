@@ -1,0 +1,11 @@
+
+██████╗ ██╗   ██╗████████╗██╗███╗   ██╗
+██╔══██╗██║   ██║╚══██╔══╝██║████╗  ██║
+██████╔╝██║   ██║   ██║   ██║██╔██╗ ██║
+██╔══██╗██║   ██║   ██║   ██║██║╚██╗██║
+██████╔╝╚██████╔╝   ██║   ██║██║ ╚████║
+╚═════╝  ╚═════╝    ╚═╝   ╚═╝╚═╝  ╚═══╝
+
+    ${application.title}
+:: Application Version ::   ${application.formatted-version}
+:: Spring Boot Version ::   ${spring-boot.formatted-version}
