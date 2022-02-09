@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback 需要的配置参数 -->
+<included>
+    <!--彩色日志依赖的渲染类-->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <!--控制台彩色输出格式-->
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd}){blue} %clr(%5p) %clr([%.15t]){magenta} %clr(%-40.40logger{40}){cyan} %clr(:) %clr(%m%n)"/>
+    <!--控制台编码格式-->
+    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
+    <!--文件输出路径-->
+    <!--开发环境-->
+    <springProfile name="dev">
+        <property name="ALL_FILE_PATH" value="D:/WorkSpace/ideaProjects/butin-api/logs"/>
+        <property name="DEBUG_FILE_PATH" value="D:/WorkSpace/ideaProjects/butin-api/logs/debug"/>
+        <property name="INFO_FILE_PATH" value="D:/WorkSpace/ideaProjects/butin-api/logs/info"/>
+        <property name="WARN_FILE_PATH" value="D:/WorkSpace/ideaProjects/butin-api/logs/warn"/>
+        <property name="ERROR_FILE_PATH" value="D:/WorkSpace/ideaProjects/butin-api/logs/error"/>
+    </springProfile>
+    <!--生产环境-->
+    <springProfile name="prod">
+        <property name="ALL_FILE_PATH" value="/var/log/butin/"/>
+        <property name="DEBUG_FILE_PATH" value="/var/log/butin/debug"/>
+        <property name="INFO_FILE_PATH" value="/var/log/butin/info"/>
+        <property name="WARN_FILE_PATH" value="/var/log/butin/warn"/>
+        <property name="ERROR_FILE_PATH" value="/var/log/butin/error"/>
+    </springProfile>
+    <!--文件输出格式-->
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} 【%5p】 [%t] %-40.40logger{39} : %m%n%wEx"/>
+    <!--文件编码-->
+    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+
+
+<!-- 日志格式修饰符
+
+可选的格式修饰符位于“%”和转换符之间。(%5p / %.15t /%-40.40logger{39})
+
+    第一个可选修饰符 “-”：
+        左对齐（%-）；右对齐（%）。
+    接着是可选的最小宽度修饰符：用十进制数表示；
+        如果字符小于最小宽度，则左填充（右对齐“%”）或右填充（左对齐“%-”，填充符为空格。
+        如果字符大于最小宽度，字符永远不会被截断,但是会右填充(左对齐)。
+    最大宽度 修饰符，符号是点号"."后面加十进制数。
+        如果字符大于最大宽度，则从前面截断。点符号“.”后面加减号“-”在加数字，表示从尾部截断。
+        如果字符小于最大宽度，左对齐。
+例如：
+    %5p 表示，将输出日志level 进行右对齐 且最小宽度为4
+    %.15t 表示，将输出线程信息 进行右对齐 且最大宽度为15
+    %-40.40logger{39} 表示，见输出记录器信息 进行左对齐 且最小宽度40，最大宽度40 logger{} 输出长度为39个字符
+-->
+
+</included>

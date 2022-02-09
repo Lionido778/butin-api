@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- Loggers -->
+
+<included>
+
+    <!-- 4  最终的策略：
+                     基本策略(root级) + 根据profile在启动时, logger标签中定制化package日志级别(优先级高于上面的root级)-->
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <appender-ref ref="ALL_FILE"/>
+        </root>
+        <logger name="cn.codeprobe.butin" level="debug"/> <!-- 开发环境, 指定包日志为debug级 -->
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <appender-ref ref="ALL_FILE"/>
+        </root>
+        <logger name="cn.codeprobe.butin" level="debug"/> <!-- 测试环境, 指定包日志为info级 -->
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="warn">
+            <!-- 生产环境最好不配置console写文件 -->
+            <!-- 同样debug也去掉 -->
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+            <appender-ref ref="ALL_FILE"/>
+        </root>
+        <logger name="cn.codeprobe.butin" level="warn"/> <!-- 生产环境, 指定某包日志为warn级 -->
+        <logger name="cn.codeprobe.butin.ButinApiApplication"
+                level="info"/> <!-- 特定某个类打印info日志, 比如application启动成功后的提示语 -->
+    </springProfile>
+
+    <!-- 常用的三方框架logger配置 -->
+    <!-- myBatis/JDBC 日志 -->
+    <logger name="com.apache.ibatis" level="DEBUG"/>
+    <logger name="java.sql.Connection" level="DEBUG"/>
+    <logger name="java.sql.Statement" level="DEBUG"/>
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+    <!-- hibernate日志 -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="DEBUG" />
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG" />
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="org.hibernate.engine.QueryParameters" level="DEBUG" />
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG" />
+
+
+    <!--系统默认-->
+    <logger name="org.apache.catalina.startup.DigesterFactory" level="info"/>
+    <logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"/>
+    <logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
+    <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
+    <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
+    <logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="ERROR"/>
+    <logger name="org.hibernate.validator.internal.util.Version" level="WARN"/>
+    <logger name="org.springframework.boot.actuate.endpoint.jmx" level="WARN"/>
+
+    <!-- logger 日志打印级别、以及输出目标配置(指定输出源<appender>)。有必填属性name和选填属性level/additivity , 一个appender-ref 子节点(可配置1个或多个)
+            name : 指定遵守该logger约束的一个包或具体的某个类
+            level : 日志级别 ,有以下值TRACE, DEBUG, INFO, WARN, ERROR, ALL, OFF , 不区分大小写.
+                    还有一个特殊值INHERITED或者同义词NULL，代表强制执行上级的级别。如果未设置此属性，那么当前logger将会继承上级的级别。
+            additivity : 是否向上级logger传递日志信息 , 默认为ture . (如果上级logger也输出日志 , 则会输出两份 . 所以通常情况下配置为false)
+    -->
+
+    <!--
+        使用mybatis的时候，sql语句是debug下才会打印，而这里我们只配置了info，所以想要查看sql语句的话，有以下两种操作：
+        第一种把<root level="info">改成<root level="DEBUG">这样就会打印sql，不过这样日志那边会出现很多其他消息
+        第二种就是单独给dao下目录配置debug模式，代码如下，这样配置sql语句会打印，其他还是正常info级别：
+        【logging.level.org.mybatis=debug logging.level.dao=debug】
+        第三种对特定的包或者类配置对应的logger打印级别   注意：logger level级别要优先于root(logger name=root)
+        <logger name="com.apache.ibatis" level="DEBUG"/>
+        <logger name="java.sql.Connection" level="DEBUG"/>
+        <logger name="java.sql.Statement" level="DEBUG"/>
+        <logger name="java.sql.PreparedStatement" level="DEBUG"/>
+     -->
+
+    <!--
+        root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性
+        root本身也是一个logger节点(相当于name="root"的logger) , 但仅能配置一个 , 是所有logger的父级(可以理解为Java中的Object) , 只有一个level属性, 默认值DEBUG
+        level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
+              不能设置为INHERITED或者同义词NULL。默认是DEBUG
+        可以包含零个或多个元素，标识这个appender将会添加到这个logger。
+    -->
+
+</included>

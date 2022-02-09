@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 日志输出组件 有两个必须的属性
+       name : 当前appender的名称 , 在logger组件中相关联
+       class : 日志的输出控制类 , 通过class将日志输出到控制台/文件/远程socket服务器/数据库等
+     不同的class有着不同的配置
+-->
+
+<included>
+    <!--class: ConsoleAppender 将日志输出到控制台; 有encoder和target两个子节点-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${CONSOLE_LOG_CHARSET}</charset>
+        </encoder>
+        <!-- ThresholdFilter: 阀值过滤器; 过滤掉低于阀值的日志,当日志级别等于或高于阀值,过滤器返回NEUTRAL,否则直接返回DENY
+        当前实在开发环境下，控制台输出的日志级别是大于或等于此级别（DEBUG）的日志信息 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+</included>

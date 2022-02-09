@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- FileAppender 将日志输出到文件 -->
+
+<included>
+    <!--RollingFileAppender，将日志动态输出到文件
+    通过clas指定策略，符合某个策略时，会自动创建新日志文件并输出(按日期/大小等)
+    有file/append/encoder/prudent/rollingPolicy 五个子节点(新版本有filter子节点) -->
+    <appender name="ALL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--是否为追加模式 . 为true则日志被追加到文件末尾 , false则清空现文件重新写入 . 默认值true-->
+        <append>true</append>
+        <!--指定日志输出的格式-->
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
+        </encoder>
+        <!-- 子节点prudent , 是否为安全写入模式 . 为ture则日志会被安全的写入文件 , 即使其他FileAppender同时做写入操作 , 效率低 . 默认值false -->
+        <prudent>false</prudent>
+        <!-- SizeAndTimeBasedRollingPolicy 综合时间和大小分割 , 单个时间段内超过大小继续分割 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--按照日期自动分割每天产生的日志,配置该节点后 , RollingFileAppender的file节点可有可无 , 如果同时配置了两个节点的话 , 日志文件会归档为两套(一套按日期分割 , 一套整个写入file指定的文件) -->
+            <fileNamePattern>${ALL_FILE_PATH}/all-%d{yyyy-MM-dd}-%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <!--单个日志的大小上限 , 超出该上线则新建日志(后缀名_1/2/3)继续写入-->
+            <maxFileSize>1GB</maxFileSize>
+            <!--配置总日志文件的大小上限-->
+            <totalSizeCap>10GB</totalSizeCap>
+            <!--控制历史归档的最大数量 , 超出该配置则删除旧文件
+            如果配置按天归档且maxHistory为30 , 则只保存最近30天的日志文件(包括为该文件而创建的目录)-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!-- 此日志文档只记录info及以上的记录 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+
+    <!-- level为 DEBUG 日志 -->
+    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日志文档输出格式-->
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
+        </encoder>
+        <!-- 综合时间和大小分割 , 单个时间段内超过大小继续分割 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${DEBUG_FILE_PATH}/debug-%d{yyyy-MM-dd}-%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <!-- 此日志文档只记录 debug 级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- level为 INFO 日志 -->
+    <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${INFO_FILE_PATH}/info-%d{yyyy-MM-dd}-%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- level为 WARN 日志 -->
+    <appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${WARN_FILE_PATH}/warn-%d{yyyy-MM-dd}-%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <!-- level为 ERROR 日志 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>${FILE_LOG_CHARSET}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${ERROR_FILE_PATH}/error-%d{yyyy-MM-dd}-%i.log}</fileNamePattern>
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <maxFileSize>1GB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+</included>
