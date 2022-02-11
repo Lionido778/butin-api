@@ -8,7 +8,7 @@
     <!-- 4  最终的策略：
                      基本策略(root级) + 根据profile在启动时, logger标签中定制化package日志级别(优先级高于上面的root级)-->
     <springProfile name="dev">
-        <root level="info">
+        <root level="debug">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>

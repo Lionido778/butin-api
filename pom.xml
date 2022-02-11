@@ -12,10 +12,13 @@
     <artifactId>butin</artifactId>
     <version>1.0</version>
     <name>butin</name>
-    <description>Demo project for Spring Boot</description>
+    <description>a simple blog</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <springfox-version>3.0.0</springfox-version>
     </properties>
 
     <dependencies>
@@ -42,6 +45,24 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.7.20</version>
+        </dependency>
+        <!--Swagger UI 增强-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.9.3</version>
+        </dependency>
+        <!--Swagger3-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-version}</version>
+        </dependency>
+        <!--Spring Boot配置注释器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <!--Devtools-->
         <dependency>

@@ -1,5 +1,17 @@
 spring:
   profiles:
     active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+# log 配置
 logging:
   config: classpath:logging/logback-spring.xml
+
+# swagger 公共部分配置
+swagger:
+  package:
+    base: cn.codeprobe.butin.controller
+    portal: ${swagger.package.base}.portal
+    admin: ${swagger.package.base}.admin
+  version: v1.0

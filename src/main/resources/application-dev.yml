@@ -1,3 +1,4 @@
+# tomcat配置
 server:
   port: 8888
   servlet:
@@ -8,7 +9,10 @@ server:
       min-spare: 30
       max: 200
     connection-timeout: 5000ms
+# Spring配置
 spring:
+  application:
+    name: butin-api
   banner:
     charset: UTF-8
     location: banner/banner.txt

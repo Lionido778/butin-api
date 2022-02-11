@@ -7,7 +7,7 @@
     <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
 
     <!--控制台彩色输出格式-->
-    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd}){blue} %clr(%5p) %clr([%.15t]){magenta} %clr(%-40.40logger{40}){cyan} %clr(:) %clr(%m%n)"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd}){blue} %clr(%5p) %clr([%.15t]){magenta} %clr(%-50.50logger{50}){cyan} %clr(:) %clr(%m%n)"/>
     <!--控制台编码格式-->
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <!--文件输出路径-->
@@ -28,7 +28,7 @@
         <property name="ERROR_FILE_PATH" value="/var/log/butin/error"/>
     </springProfile>
     <!--文件输出格式-->
-    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} 【%5p】 [%t] %-40.40logger{39} : %m%n%wEx"/>
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} 【%5p】 [%t] %-50.50logger{50} : %m%n%wEx"/>
     <!--文件编码-->
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
 

@@ -10,8 +10,8 @@ import org.springframework.core.env.Environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 public class ButinApiApplication {
 
     public static void main(String[] args) throws UnknownHostException {
@@ -23,13 +23,9 @@ public class ButinApiApplication {
         if (StrUtil.isBlank(path)) {
             path = " ";
         }
-        log.trace("trace");
-        log.debug("debug");
-        log.warn("warn");
-        log.error("error");
         log.info(
                 "\n------------------------------------------------------------------\n\t" +
-                        "application is running! \n\t" +
+                        "Started successfully. application is running! \n\t" +
                         "Local访问网址: \t\thttp://localhost:" + port + path + "\n\t" +
                         "External访问网址: \thttp://" + ip + ":" + port + path + "\n" +
                         "------------------------------------------------------------------\n");
