@@ -1,6 +1,8 @@
 package cn.codeprobe.butin.controller.portal;
 
 import cn.codeprobe.butin.controller.portal.service.ChildService;
+import cn.codeprobe.butin.controller.response.R;
+import cn.codeprobe.butin.controller.response.Status;
 import jdk.nashorn.internal.ir.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +26,20 @@ public class TestRootController {
     @Resource
     private ChildService childService;
 
-    @GetMapping("logger")
+    @GetMapping("/logger")
     public String test() {
         log.info("TestRootController");
         System.out.println(this.getClass().getName());
         childService.childLogPrinter();
         return "hello,world";
     }
+
+
+    @GetMapping("/R")
+    public R R() {
+        return R.ok(Status.OK).put("data","data");
+    }
+
 }
 
 
