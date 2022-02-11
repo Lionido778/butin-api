@@ -1,0 +1,43 @@
+{
+  "properties": [
+    {
+      "name": "swagger.package.portal",
+      "type": "java.lang.String",
+      "description": "Description for swagger.package.portal."
+    },
+    {
+      "name": "swagger.package.base",
+      "type": "java.lang.String",
+      "description": "Description for swagger.package.base."
+    },
+    {
+      "name": "swagger.package.admin",
+      "type": "java.lang.String",
+      "description": "Description for swagger.package.admin."
+    },
+    {
+      "name": "swagger.version",
+      "type": "java.lang.String",
+      "description": "Description for swagger.version."
+    },
+    {
+      "name": "swagger.production",
+      "type": "java.lang.String",
+      "description": "Description for swagger.production."
+    },
+    {
+      "name": "swagger.basic.enable",
+      "type": "java.lang.String",
+      "description": "Description for swagger.basic.enable."
+    },
+    {
+      "name": "swagger.basic.username",
+      "type": "java.lang.String",
+      "description": "Description for swagger.basic.username."
+    },
+    {
+      "name": "swagger.basic.password",
+      "type": "java.lang.String",
+      "description": "Description for swagger.basic.password."
+    }
+  ] }
