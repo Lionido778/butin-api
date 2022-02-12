@@ -7,8 +7,10 @@ package cn.codeprobe.butin.exception.response;
  */
 public enum Status_Error {
     TEST(4000, "test msg"),
-    COMMON(8888, "网站发生错误，请联系管理员");
-
+    COMMON(8888, "服务器内部错误，请联系管理员"),
+    VALIDATION(5000, "自定义"),
+    NOT_FOUND(40004, "页面丢失"),
+    METHOD_NOT_ALLOWED(4005, "METHOD_NOT_ALLOWED");
 
     private int errorCode;
     private String errorMsg;
@@ -24,5 +26,14 @@ public enum Status_Error {
 
     public String getErrorMsg() {
         return errorMsg;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public Status_Error setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
     }
 }

@@ -2,7 +2,6 @@ package cn.codeprobe.butin.exception;
 
 import cn.codeprobe.butin.exception.response.Status_Error;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Created by Lionido on 12/2/2022

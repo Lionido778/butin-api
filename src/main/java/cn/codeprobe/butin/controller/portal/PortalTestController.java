@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PortalTestController {
     @GetMapping("/hello")
     @ApiOperation("测试方法")
-    public String test(){
+    public String test() {
         return "hello,world";
     }
 }

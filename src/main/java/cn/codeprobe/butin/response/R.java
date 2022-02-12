@@ -18,7 +18,7 @@ public class R extends LinkedHashMap<String, Object> {
 
     private static final String CODE_TAG = "code";
     private static final String MESSAGE_TAG = "msg";
-    private static final String DATA_TAG = "data";
+    private static final String DATA_TAG = "success";
 
 
     public R put(String key, Object value) {

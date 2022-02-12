@@ -2,11 +2,11 @@ package cn.codeprobe.butin.response;
 
 /**
  * Created by Lionido on 11/2/2022
- *
+ * <p>
  * 定义枚举响应返回码
- *  code;       //业务状态码
- *  msg;        //业务消息
- *  success;    //响应是否成功
+ * code;       //业务状态码
+ * msg;        //业务消息
+ * success;    //响应是否成功
  */
 public enum Status {
 
@@ -16,7 +16,9 @@ public enum Status {
     ),
 
     /**********error**********/
-    ERROR(400, "error", false);
+    ERROR(400, "error", false),
+    NOT_FOUND(404, "页面丢失了", false),
+    METHOD_NOT_MATCHED(405, "请求方法不匹配", false);
 
 
     private int code;       //业务状态码
