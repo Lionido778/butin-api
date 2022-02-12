@@ -1,9 +1,9 @@
-package cn.codeprobe.butin.controller.response;
+package cn.codeprobe.butin.response;
 
 /**
  * Created by Lionido on 11/2/2022
  *
- * 定义返回码枚举
+ * 定义枚举响应返回码
  *  code;       //业务状态码
  *  msg;        //业务消息
  *  success;    //响应是否成功

@@ -1,9 +1,11 @@
 package cn.codeprobe.butin.controller.portal;
 
+import cn.codeprobe.butin.exception.ButinException;
+import cn.codeprobe.butin.exception.response.Status_Error;
 import cn.codeprobe.butin.controller.portal.service.ChildService;
-import cn.codeprobe.butin.controller.response.R;
-import cn.codeprobe.butin.controller.response.Status;
-import jdk.nashorn.internal.ir.annotations.Reference;
+import cn.codeprobe.butin.response.R;
+import cn.codeprobe.butin.response.Status;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +39,12 @@ public class TestRootController {
 
     @GetMapping("/R")
     public R R() {
-        return R.ok(Status.OK).put("data","data");
+        return R.ok(Status.OK).put("data", "data");
+    }
+
+    @GetMapping("/exception")
+    public R E() {
+        throw new ButinException(Status_Error.TEST);
     }
 
 }
