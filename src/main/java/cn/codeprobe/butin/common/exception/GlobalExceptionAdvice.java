@@ -1,7 +1,7 @@
-package cn.codeprobe.butin.exception;
+package cn.codeprobe.butin.common.exception;
 
-import cn.codeprobe.butin.exception.response.R_Error;
-import cn.codeprobe.butin.exception.response.Status_Error;
+import cn.codeprobe.butin.common.exception.response.R_Error;
+import cn.codeprobe.butin.common.exception.response.Status_Error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;

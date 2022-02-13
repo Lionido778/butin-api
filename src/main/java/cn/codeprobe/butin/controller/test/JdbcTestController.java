@@ -1,6 +1,9 @@
 package cn.codeprobe.butin.controller.test;
 
+import cn.codeprobe.butin.model.po.User;
+import cn.codeprobe.butin.service.UserService;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,16 +19,24 @@ public class JdbcTestController {
     @Resource
     JdbcTemplate jdbcTemplate;
 
+    @Resource
+    UserService userService;
+
     @RequestMapping(value = "/jdbc", method = RequestMethod.GET)
     public String index() {
 
         String sql = "SELECT mobile FROM user WHERE id = ?";
 
         // 通过jdbcTemplate查询数据库
-        String mobile = (String) jdbcTemplate.queryForObject(
+        String mobile = jdbcTemplate.queryForObject(
                 sql, new Object[]{1}, String.class);
 
         return "Hello " + mobile;
+    }
+
+    @PostMapping("/mybatis")
+    public User mybatis(Long userId) {
+        return userService.getUserById(userId);
     }
 }
 

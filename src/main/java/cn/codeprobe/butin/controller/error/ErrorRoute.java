@@ -1,7 +1,7 @@
 package cn.codeprobe.butin.controller.error;
 
-import cn.codeprobe.butin.response.R;
-import cn.codeprobe.butin.response.Status;
+import cn.codeprobe.butin.common.response.R;
+import cn.codeprobe.butin.common.response.Status;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

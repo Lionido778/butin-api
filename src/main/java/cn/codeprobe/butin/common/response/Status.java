@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.response;
+package cn.codeprobe.butin.common.response;
 
 /**
  * Created by Lionido on 11/2/2022

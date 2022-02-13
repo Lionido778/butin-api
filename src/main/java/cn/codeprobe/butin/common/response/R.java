@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.response;
+package cn.codeprobe.butin.common.response;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

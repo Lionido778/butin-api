@@ -1,6 +1,6 @@
-package cn.codeprobe.butin.exception;
+package cn.codeprobe.butin.common.exception;
 
-import cn.codeprobe.butin.exception.response.Status_Error;
+import cn.codeprobe.butin.common.exception.response.Status_Error;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

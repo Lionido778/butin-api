@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.pojo.vo;
+package cn.codeprobe.butin.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

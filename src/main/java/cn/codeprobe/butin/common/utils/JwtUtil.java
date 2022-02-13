@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.utils;
+package cn.codeprobe.butin.common.utils;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
@@ -19,13 +19,13 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.tokenPrefix}")
+    @Value("${butin.jwt.tokenPrefix}")
     private String tokenPrefix;
 
-    @Value("${jwt.secret}")
+    @Value("${butin.jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expireTime}")
+    @Value("${butin.jwt.expireTime}")
     private int expireTime;
 
 

@@ -3,8 +3,8 @@ spring:
   profiles:
     active: dev   # dev: 开发环境， prod: 生产环境
   mvc:
-    pathmatch:    #解决 Swagger 与 SpringBoot2.6.x 路径策略不一致的问题
-      matching-strategy: ant_path_matcher
+    pathmatch:
+      matching-strategy: ant_path_matcher   #解决 Swagger 与 SpringBoot2.6.x 路径策略不一致的问题
     # 让404错误抛出异常，需要同时设置 spring.web.resources.add-mappings 为 false
     throw-exception-if-no-handler-found: true
   web:
@@ -26,34 +26,32 @@ spring:
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       minEvictableIdleTimeMillis: 300000
       # 测试连接
-      testWhileIdle: true   # 是否在连接空闲一段时间后检测其可用性（默认true）
-      testOnBorrow: false   # 是否在获得连接后检测其可用性（默认false）
-      testOnReturn: false   # 是否在连接放回连接池后检测其可用性（默认false）
+      testWhileIdle: true       # 是否在连接空闲一段时间后检测其可用性（默认true）
+      testOnBorrow: false       # 是否在获得连接后检测其可用性（默认false）
+      testOnReturn: false       # 是否在连接放回连接池后检测其可用性（默认false）
       # 打开PSCache，并且指定每个连接上PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-      keep-alive: true  # 保持连接存在（默认false）
+      keep-alive: true              # 保持连接存在（默认false）
       # asyncInit是1.1.4中新增加的配置，如果有initialSize数量较多时，打开会加快应用启动时间
       asyncInit: true
       # 配置统计页面
       stat-view-servlet:
-        enabled: true   # 是否开启（默认 false ）
-        url-pattern: /druid/*   # 统计页面访问路径（默认）
-        # 注：生产环境记得打开用户名和密码的配置，并设置复杂密码
-        #login-username: admin # 用户名
-        #login-password: admin # 密码
-        reset-enable: true # 是否允许重置统计数据（默认 true ）
-        allow: "" # 允许任意IP访问（默认 127.0.0.1 ）  #eny: 192.168.1.1 # 禁止访问的IP（优先级高于allow）
+        enabled: true               # 是否开启（默认 false ）
+        url-pattern: /druid/*       # 统计页面访问路径（默认）
+        # 注：生产环境要打开用户名和密码的配置
+        reset-enable: true          # 是否允许重置统计数据（默认 true ）
+        allow: ""                   # 允许任意IP访问（默认 127.0.0.1 ）  #eny: 192.168.1.1 # 禁止访问的IP（优先级高于allow）
       # 配置监控统计拦截的 filters
       filters: "stat,wall,slf4j"
       # 配置Web应用、URI监控、Session监控
       web-stat-filter:
-        enabled: true # 开启（默认 false）
-        url-pattern: /* # 监控的路径（默认）
-        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,*.woff2,/druid/*" # 排除监控的路径或文件类型
-        session-stat-enable: true # 启用Session监控（默认）
-        session-stat-max-count: 1000 # 最大统计的session数量
-        profile-enable: true # 监控单个url调用的sql列表
+        enabled: true                 # 开启（默认 false）
+        url-pattern: /*               # 监控的路径（默认）
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,*.woff2,/druid/*"   # 排除监控的路径或文件类型
+        session-stat-enable: true         # 启用Session监控（默认）
+        session-stat-max-count: 1000      # 最大统计的session数量
+        profile-enable: true              # 监控单个url调用的sql列表
 
 ## log 配置
 logging:
@@ -66,9 +64,20 @@ swagger:
     portal: ${swagger.package.base}.portal
     admin: ${swagger.package.base}.admin
   version: v1.0
+
+
 ## jwt
-jwt:
-  header: "Authorization"     #token返回头部
-  tokenPrefix: "Bearer "      #token前缀
-  secret: "tobeabetterman"     #加密密钥
-  expireTime: 10              #token有效时间 (天)
+butin:
+  jwt:
+    header: "Authorization"     # token返回头部
+    tokenPrefix: "Bearer "      # token前缀
+    secret: "tobeabetterman"    # 加密密钥
+    expireTime: 10              # token有效时间 (天)
+
+## mybatis配置
+mybatis:
+  type-aliases-package: cn.codeprobe.butin.model.po  # 参数类型的包别名设置  设置这个以后xml映射文件在 parameterType 的值就不用写成全路径名了
+  mapper-locations: classpath:mapper/*.xml        # 指向映射xml文件目录
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    map-underscore-to-camel-case: true

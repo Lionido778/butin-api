@@ -41,24 +41,24 @@
       "description": "Description for swagger.basic.password."
     },
     {
-      "name": "jwt.header",
+      "name": "butin.jwt.secret",
       "type": "java.lang.String",
-      "description": "Description for jwt.header."
+      "description": "Description for butin.jwt.secret."
     },
     {
-      "name": "jwt.tokenPrefix",
+      "name": "butin.jwt.header",
       "type": "java.lang.String",
-      "description": "Description for jwt.tokenPrefix."
+      "description": "Description for butin.jwt.header."
     },
     {
-      "name": "jwt.secret",
+      "name": "butin.jwt.expireTime",
       "type": "java.lang.String",
-      "description": "Description for jwt.secret."
+      "description": "Description for butin.jwt.expireTime."
     },
     {
-      "name": "jwt.expireTime",
+      "name": "butin.jwt.tokenPrefix",
       "type": "java.lang.String",
-      "description": "Description for jwt.expireTime."
+      "description": "Description for butin.jwt.tokenPrefix."
     }
   ]
 }

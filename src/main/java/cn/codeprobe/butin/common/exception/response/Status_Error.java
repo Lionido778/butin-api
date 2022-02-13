@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.exception.response;
+package cn.codeprobe.butin.common.exception.response;
 
 /**
  * Created by Lionido on 12/2/2022

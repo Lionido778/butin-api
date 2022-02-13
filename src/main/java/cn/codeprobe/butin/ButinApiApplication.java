@@ -2,6 +2,7 @@ package cn.codeprobe.butin;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,6 +12,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Slf4j
+@MapperScan("cn.codeprobe.butin.repository")  //指定要扫描的 mybatis映射类的路径
 @SpringBootApplication
 public class ButinApiApplication {
 

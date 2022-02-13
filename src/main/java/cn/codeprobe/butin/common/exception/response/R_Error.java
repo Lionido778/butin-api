@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.exception.response;
+package cn.codeprobe.butin.common.exception.response;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package cn.codeprobe.butin.controller.admin;
 
-import cn.codeprobe.butin.pojo.po.User;
+import cn.codeprobe.butin.model.po.User;
 import cn.codeprobe.butin.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +34,11 @@ public class TestUserController {
     public User changeNickname(@PathVariable long id) {
 
         String nick = "abc-" + Math.random();
-        User user = userService.updateUserNickname(id, nick);
-
-        return user;
+        int effect = userService.updateUserNickname(id, nick);
+        if (effect < 0) {
+            return null;
+        }
+        return userService.getUserById(id);
     }
 
     // 使用RedisTemplate访问redis服务器
@@ -44,7 +46,7 @@ public class TestUserController {
     public String redis() {
 
         // 设置键"project-name"，值"qikegu-springboot-redis-demo"
-        redis.opsForValue().set("project-name", "qikegu-springboot-redis-demo");
+        redis.opsForValue().set("project-name", "springboot-redis-demo");
         String value = (String) redis.opsForValue().get("project-name");
 
         return value;
