@@ -1,0 +1,53 @@
+package cn.codeprobe.butin.controller.admin;
+
+import cn.codeprobe.butin.pojo.po.User;
+import cn.codeprobe.butin.service.UserService;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+
+@RestController
+@RequestMapping("/user")
+public class TestUserController {
+
+    // 注入service类
+    @Resource
+    private UserService userService;
+
+    // 注入RedisTemplate
+    @Resource
+    private RedisTemplate<String, Object> redis;
+
+    // 读取用户信息，测试缓存使用：除了首次读取，接下来都应该从缓存中读取
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public User getUser(@PathVariable long id) {
+
+        User user = userService.getUserById(id);
+
+        return user;
+    }
+
+    // 修改用户信息，测试删除缓存
+    @RequestMapping(value = "/{id}/change-nick", method = RequestMethod.POST, produces = "application/json")
+    public User changeNickname(@PathVariable long id) {
+
+        String nick = "abc-" + Math.random();
+        User user = userService.updateUserNickname(id, nick);
+
+        return user;
+    }
+
+    // 使用RedisTemplate访问redis服务器
+    @RequestMapping(value = "/redis", method = RequestMethod.GET, produces = "application/json")
+    public String redis() {
+
+        // 设置键"project-name"，值"qikegu-springboot-redis-demo"
+        redis.opsForValue().set("project-name", "qikegu-springboot-redis-demo");
+        String value = (String) redis.opsForValue().get("project-name");
+
+        return value;
+    }
+}
+

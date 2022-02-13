@@ -5,6 +5,8 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -62,7 +64,7 @@ public class JwtUtil {
     /**
      * 校验 token
      */
-    public void verifyToken(String token) {
+    public void verifyToken(String token) throws SignatureVerificationException, TokenExpiredException {
         JWT.require(Algorithm.HMAC256(secret))
                 .build()
                 .verify(token.replace(tokenPrefix, ""));

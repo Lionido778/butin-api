@@ -9,6 +9,10 @@ public enum Status_Error {
     TEST(4000, "test msg"),
     COMMON(8888, "服务器内部错误，请联系管理员"),
     VALIDATION(5000, "自定义"),
+    /* token */
+    NULL_TOKEN(5001, "token 是空的"),
+    EXPIRE_TOKEN(5002, "token 过期"),
+    INVALID_TOKEN(5003, "token 无效"),
     NOT_FOUND(40004, "页面丢失"),
     METHOD_NOT_ALLOWED(4005, "METHOD_NOT_ALLOWED");
 
