@@ -2,7 +2,12 @@ HELP.md
 target/
 logs/
 src/test
-.mvn/
+
+### Maven ###
+.mvn
+mvnw
+mvnw.cmd
+
 ### STS ###
 .apt_generated
 .classpath
@@ -17,9 +22,6 @@ src/test
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-.mvn
 
 ### NetBeans ###
 /nbproject/private/
