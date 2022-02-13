@@ -12,8 +12,7 @@ public enum Status {
 
     /**********ok**********/
     OK(200, "success", true),
-    LOGIN(2000, "登录成功", true
-    ),
+    LOGIN(2000, "登录成功", true),
 
     /**********error**********/
     ERROR(400, "error", false),

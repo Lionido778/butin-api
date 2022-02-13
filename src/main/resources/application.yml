@@ -11,6 +11,7 @@ spring:
   web:
     resources:
       add-mappings: false
+
 # log 配置
 logging:
   config: classpath:logging/logback-spring.xml
@@ -22,3 +23,9 @@ swagger:
     portal: ${swagger.package.base}.portal
     admin: ${swagger.package.base}.admin
   version: v1.0
+
+jwt:
+  header: "Authorization"     #token返回头部
+  tokenPrefix: "Bearer "      #token前缀
+  secret: "tobeabetterman"     #加密密钥
+  expireTime: 10              #token有效时间 (天)

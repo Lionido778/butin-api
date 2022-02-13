@@ -6,12 +6,15 @@ import cn.codeprobe.butin.exception.response.Status_Error;
 import cn.codeprobe.butin.pojo.vo.TestVO;
 import cn.codeprobe.butin.response.R;
 import cn.codeprobe.butin.response.Status;
+import cn.codeprobe.butin.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Lionido on 9/2/2022
@@ -21,6 +24,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/test")
 public class TestRootController {
+
+    @Resource
+    private JwtUtil jwtUtil;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -48,7 +54,27 @@ public class TestRootController {
 
     @PostMapping("/testVO")
     public R vo(@Valid @RequestBody TestVO testVO) {
+        System.out.println(testVO);
         return R.ok(Status.OK);
+    }
+
+    @GetMapping("/createToken")
+    public R createToken() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", 1);
+        return R.ok(Status.LOGIN).put("token", jwtUtil.createToken(map));
+    }
+
+    @GetMapping("/decodeToken")
+    public R decodeToken(String token) {
+        Map<String, Object> map = jwtUtil.decodeToken(token);
+        return R.ok(Status.LOGIN).put((HashMap<String, Object>) map);
+    }
+
+    @GetMapping("/verifyToken")
+    public R verifyToken(String token) {
+        jwtUtil.verifyToken(token);
+        return R.ok(Status.OK).put("data", 123123);
     }
 }
 

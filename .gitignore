@@ -2,8 +2,7 @@ HELP.md
 target/
 logs/
 src/test
-
-
+.mvn/
 ### STS ###
 .apt_generated
 .classpath
