@@ -1,4 +1,4 @@
-# tomcat
+## tomcat
 server:
   port: 9999
   servlet:
@@ -10,13 +10,42 @@ server:
       max: 200
     connection-timeout: 5000ms
 
-# spring
+## spring
 spring:
   banner:
     charset: UTF-8
     location: banner/banner.txt
+  # redis
+  redis:
+    database: 2        # Redis数据库索引（默认为0）
+    host: 127.0.0.1    # Redis服务器地址
+    port: 6379         # Redis服务器连接端口
+    password: master   # Redis服务器连接密码（默认为空）
+    lettuce:
+      pool:
+        max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1   # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8    # 连接池中的最大空闲连接
+        min-idle: 0    # 连接池中的最小空闲连接
+  datasource:
+    druid:
+      # 数据库连接
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3307/butin?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: master
+      # 配置统计页面
+      stat-view-servlet:
+        enabled: true   # 是否开启（默认 false ）
+        url-pattern: /druid/*   # 统计页面访问路径（默认）
+        # 注：生产环境记得打开用户名和密码的配置，并设置复杂密码
+        login-username: admin # 用户名
+        login-password: admin # 密码
+        reset-enable: true # 是否允许重置统计数据（默认 true ）
+        allow: "" # 允许任意IP访问（默认 127.0.0.1 ）  #eny: 192.168.1.1 # 禁止访问的IP（优先级高于allow）
 
-# swagger 生产环境权限认证配置
+
+## swagger 生产环境权限认证配置
 swagger:
   # 开启生产环境屏蔽
   production: false
