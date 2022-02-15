@@ -32,7 +32,7 @@ public class ShiroConfig {
 
     /**
      * 这里可能会报错，No SecurityManager accessible to the calling code ...
-        在shiroFilter 类上加注解  @Scope("prototype")
+     * 在shiroFilter 类上加注解  @Scope("prototype")
      */
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager, OAuth2Filter oAuth2Filter) {

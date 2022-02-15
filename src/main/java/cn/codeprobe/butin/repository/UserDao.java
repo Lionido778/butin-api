@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao {
 
+
     User getUserById(long userId);
 
     int updateUserById(long userId, String nickname);

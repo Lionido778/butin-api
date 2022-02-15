@@ -104,11 +104,11 @@
             <version>2.2.2</version>
         </dependency>
         <!--shiro-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shiro</groupId>-->
-<!--            <artifactId>shiro-web</artifactId>-->
-<!--            <version>1.8.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.shiro</groupId>-->
+        <!--            <artifactId>shiro-web</artifactId>-->
+        <!--            <version>1.8.0</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -171,8 +172,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
         } catch (IOException e) {
             log.error("登录错误信息响应失败", e);
         } finally {
-            assert writer != null;
-            writer.close();
+            Objects.requireNonNull(writer).close();
         }
     }
 

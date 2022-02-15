@@ -21,7 +21,7 @@ public class ThreadLocalToken {
 
 
     public String getToken() {
-        log.debug(name + id + "获取token:{}",local.get());
+        log.debug(name + id + "获取token:{}", local.get());
         return local.get();
     }
 

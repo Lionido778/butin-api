@@ -19,7 +19,7 @@ public class AdminTestController {
     @GetMapping("/hello")
     @ApiOperation("测试方法")
     public R test() {
-        return R.ok(Status.OK).put("data","hello,world");
+        return R.ok(Status.OK).put("data", "hello,world");
     }
 
 
