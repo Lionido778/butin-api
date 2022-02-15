@@ -59,6 +59,11 @@
       "name": "butin.jwt.tokenPrefix",
       "type": "java.lang.String",
       "description": "Description for butin.jwt.tokenPrefix."
+    },
+    {
+      "name": "butin.jwt.expireTimeCache",
+      "type": "java.lang.String",
+      "description": "Description for butin.jwt.expireTimeCache."
     }
   ]
 }

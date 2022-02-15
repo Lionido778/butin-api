@@ -14,11 +14,12 @@ import java.util.LinkedHashMap;
  * success: 请求响应是否成功
  * }
  */
+
 public class R extends LinkedHashMap<String, Object> {
 
     private static final String CODE_TAG = "code";
     private static final String MESSAGE_TAG = "msg";
-    private static final String DATA_TAG = "success";
+    private static final String DATA_TAG = "isSuccess";
 
 
     public R put(String key, Object value) {

@@ -14,4 +14,10 @@
         WHERE id = #{param1}
     </update>
 
+    <select id="getUserByUsername" parameterType="string" resultType="cn.codeprobe.butin.model.po.User">
+        SELECT id, nickname, mobile, password, 'role'
+        FROM user
+        WHERE nickname = #{nickname}
+    </select>
+
 </mapper>

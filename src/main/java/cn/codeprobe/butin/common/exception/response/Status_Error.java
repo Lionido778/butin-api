@@ -13,8 +13,11 @@ public enum Status_Error {
     NULL_TOKEN(5001, "token 是空的"),
     EXPIRE_TOKEN(5002, "token 过期"),
     INVALID_TOKEN(5003, "token 无效"),
+    UNAUTHORIZED(40001, "没有权限"),
     NOT_FOUND(40004, "页面丢失"),
-    METHOD_NOT_ALLOWED(4005, "METHOD_NOT_ALLOWED");
+    METHOD_NOT_ALLOWED(4005, "METHOD_NOT_ALLOWED"),
+    /* login */
+    LOGIN_FAILURE(50004, "用户名或密码错误");
 
     private int errorCode;
     private String errorMsg;

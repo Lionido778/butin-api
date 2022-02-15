@@ -9,4 +9,6 @@ public interface UserDao {
     User getUserById(long userId);
 
     int updateUserById(long userId, String nickname);
+
+    User getUserByUsername(String nickname);
 }

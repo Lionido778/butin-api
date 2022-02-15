@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-<!--    &lt;!&ndash;导入配置文件&ndash;&gt;-->
-<!--    <properties resource="application-dev.yml"/>-->
+    <!--    &lt;!&ndash;导入配置文件&ndash;&gt;-->
+    <!--    <properties resource="application-dev.yml"/>-->
 
     <!-- 一个数据库一个context -->
     <context id="default">
@@ -18,11 +18,11 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
-<!--        &lt;!&ndash;jdbc的数据库连接&ndash;&gt;-->
-<!--        <jdbcConnection driverClass="{spring.datasource.druid.driver-class-name}" connectionURL="{spring.datasource.druid.url}"-->
-<!--                        userId="{spring.datasource.druid.username}" password="{spring.datasource.druid.password}">-->
-<!--            <property name="nullCatalogMeansCurrent" value="true"/>-->
-<!--        </jdbcConnection>-->
+        <!--        &lt;!&ndash;jdbc的数据库连接&ndash;&gt;-->
+        <!--        <jdbcConnection driverClass="{spring.datasource.druid.driver-class-name}" connectionURL="{spring.datasource.druid.url}"-->
+        <!--                        userId="{spring.datasource.druid.username}" password="{spring.datasource.druid.password}">-->
+        <!--            <property name="nullCatalogMeansCurrent" value="true"/>-->
+        <!--        </jdbcConnection>-->
 
         <!--jdbc的数据库连接-->
         <jdbcConnection

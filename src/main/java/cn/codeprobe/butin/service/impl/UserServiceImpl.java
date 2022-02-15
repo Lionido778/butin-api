@@ -1,6 +1,11 @@
 package cn.codeprobe.butin.service.impl;
 
+import cn.codeprobe.butin.common.exception.ButinException;
+import cn.codeprobe.butin.common.exception.response.Status_Error;
+import cn.codeprobe.butin.common.utils.JwtUtil;
+import cn.codeprobe.butin.model.dto.UserDTO;
 import cn.codeprobe.butin.model.po.User;
+import cn.codeprobe.butin.model.vo.LoginVO;
 import cn.codeprobe.butin.repository.UserDao;
 import cn.codeprobe.butin.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private JwtUtil jwtUtil;
+
 
     @Cacheable(value = "test", key = "#userId")
     @Override
@@ -35,4 +44,16 @@ public class UserServiceImpl implements UserService {
             log.info("更新失败");
         return effect;
     }
+
+    @Override
+    public UserDTO login(LoginVO loginVO) {
+        User user = userDao.getUserByUsername(loginVO.getNickname());
+        if (user == null || !user.getPassword().equals(loginVO.getPassword())) {
+            throw new ButinException(Status_Error.LOGIN_FAILURE);
+        }
+        UserDTO userDTO = new UserDTO(user.getId(), user.getNickname(), user.getMobile(), user.getRole());
+        return userDTO;
+    }
+
+
 }

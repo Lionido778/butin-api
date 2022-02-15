@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -35,7 +34,7 @@ public class JwtUtil {
     /**
      * 生成 token     {"Bearer " + token}
      */
-    public String createToken(HashMap<String, Object> map) {
+    public String createToken(Map<String, Object> map) {
         //签名算法
         Algorithm hmac256 = Algorithm.HMAC256(secret);
         //过期时间

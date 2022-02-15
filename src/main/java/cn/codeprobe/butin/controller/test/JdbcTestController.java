@@ -1,6 +1,7 @@
 package cn.codeprobe.butin.controller.test;
 
-import cn.codeprobe.butin.model.po.User;
+import cn.codeprobe.butin.common.response.R;
+import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.service.UserService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +36,8 @@ public class JdbcTestController {
     }
 
     @PostMapping("/mybatis")
-    public User mybatis(Long userId) {
-        return userService.getUserById(userId);
+    public R mybatis(Long userId) {
+        return R.ok(Status.OK).put("data", userService.getUserById(userId));
     }
 }
 
