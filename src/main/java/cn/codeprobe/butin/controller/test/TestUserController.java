@@ -1,4 +1,4 @@
-package cn.codeprobe.butin.controller.admin;
+package cn.codeprobe.butin.controller.test;
 
 import cn.codeprobe.butin.model.po.User;
 import cn.codeprobe.butin.service.UserService;
@@ -23,9 +23,7 @@ public class TestUserController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public User getUser(@PathVariable long id) {
-
         User user = userService.getUserById(id);
-
         return user;
     }
 
@@ -48,7 +46,6 @@ public class TestUserController {
         // 设置键"project-name"，值"qikegu-springboot-redis-demo"
         redis.opsForValue().set("project-name", "springboot-redis-demo");
         String value = (String) redis.opsForValue().get("project-name");
-
         return value;
     }
 }
