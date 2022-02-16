@@ -15,7 +15,7 @@ public enum Status_Error {
     INVALID_TOKEN(5003, "token 无效"),
     UNAUTHORIZED(40001, "没有权限"),
     NOT_FOUND(40004, "页面丢失"),
-    METHOD_NOT_ALLOWED(4005, "METHOD_NOT_ALLOWED"),
+    METHOD_NOT_ALLOWED(4005, "请求方式不允许"),
     /* login */
     LOGIN_FAILURE(50004, "用户名或密码错误");
 

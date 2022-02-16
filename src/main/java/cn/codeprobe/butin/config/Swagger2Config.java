@@ -1,5 +1,7 @@
 package cn.codeprobe.butin.config;
 
+import cn.codeprobe.butin.common.constant.SwaggerParam;
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -17,10 +18,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+@EnableSwaggerBootstrapUI
 @EnableSwagger2
-@EnableOpenApi
-public class Swagger3Config {
+@Configuration
+public class Swagger2Config {
 
     @Value("${swagger.package.portal}")
     private String PORTAL_PACKAGE;       // portal controller接口所在的包
@@ -28,8 +29,14 @@ public class Swagger3Config {
     @Value("${swagger.package.admin}")
     private String ADMIN_PACKAGE;       // admin controller接口所在的包
 
+    @Value("${swagger.package.user}")
+    private String USER_PACKAGE;       // admin controller接口所在的包
+
     @Value("${swagger.version}")
     private String VERSION;         // 当前文档的版本
+
+    private final Contact contact = new Contact(SwaggerParam.contact.NAME,
+            SwaggerParam.contact.URL, SwaggerParam.contact.EMAIL);
 
 
     /**
@@ -37,11 +44,11 @@ public class Swagger3Config {
      */
     @Bean
     public Docket portalApi() {
-        return new Docket(DocumentationType.OAS_30)
+        return new Docket(DocumentationType.SWAGGER_2)
                 // 是否启用Swagger
-                .enable(true)
+                .enable(SwaggerParam.enable.OPEN)
                 // 设置分组
-                .groupName("前端门户")
+                .groupName(SwaggerParam.group.PORTAL)
                 // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
                 .apiInfo(portalApiInfo())
                 // 设置哪些接口暴露给Swagger展示
@@ -63,13 +70,12 @@ public class Swagger3Config {
      */
     private ApiInfo portalApiInfo() {
 
-        Contact contact = new Contact("Lionido", "www.codeprobe.cn", "codeprobe@163.com");
 
         return new ApiInfoBuilder()  //定义Swagger页面基本信息
                 // 设置标题
-                .title("博客系统-门户接口文档")
+                .title(SwaggerParam.title.PORTAL)
                 // 设置文档的描述
-                .description("门户接口文档")
+                .description(SwaggerParam.description.PORTAL)
                 // 设置文档的版本信息-> 1.0 Version information
                 .version(VERSION)
                 // 作者信息
@@ -83,9 +89,9 @@ public class Swagger3Config {
      */
     @Bean
     public Docket adminApi() {
-        return new Docket(DocumentationType.OAS_30)
-                .enable(true)
-                .groupName("管理中心")
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(SwaggerParam.enable.OPEN)
+                .groupName(SwaggerParam.group.ADMIN)
                 .apiInfo(adminApiInfo())
                 .select()
                 //哪些类中的方法会出现在Swagger上面
@@ -99,9 +105,43 @@ public class Swagger3Config {
 
     private ApiInfo adminApiInfo() {
         return new ApiInfoBuilder()
-                .title("博客系统-管理中心接口文档")
-                .description("管理中心接口")
+                .title(SwaggerParam.title.ADMIN)
+                .description(SwaggerParam.description.ADMIN)
                 .version(VERSION)
+                .contact(contact)
+                .build();
+    }
+
+
+    /**
+     * 用户管理 API，接口前缀：user
+     */
+    @Bean
+    public Docket userApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(SwaggerParam.enable.OPEN)
+                .groupName(SwaggerParam.group.USER)
+                .apiInfo(userApiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(USER_PACKAGE))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts());
+    }
+
+
+    /**
+     * @return 摘要信息
+     */
+    private ApiInfo userApiInfo() {
+
+
+        return new ApiInfoBuilder()
+                .title(SwaggerParam.title.USER)
+                .description(SwaggerParam.description.USER)
+                .version(VERSION)
+                .contact(contact)
                 .build();
     }
 

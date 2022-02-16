@@ -9,7 +9,7 @@ spring:
     throw-exception-if-no-handler-found: true
   web:
     resources:
-      add-mappings: false      # 禁用静态资源的自动映射，如不禁用，不存在的url将被映射到/**，servlet没有机会抛出异常
+      add-mappings: true    # 禁用静态资源的自动映射，如不禁用，不存在的url将被映射到/**，servlet没有机会抛出异常
   datasource:
     # 数据库连接池 druid
     type: com.alibaba.druid.pool.DruidDataSource
@@ -63,6 +63,7 @@ swagger:
     base: cn.codeprobe.butin.controller
     portal: ${swagger.package.base}.portal
     admin: ${swagger.package.base}.admin
+    user: ${swagger.package.base}.user
   version: v1.0
 
 

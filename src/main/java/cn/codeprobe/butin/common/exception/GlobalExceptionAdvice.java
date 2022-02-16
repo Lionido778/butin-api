@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * 使用 @RestControllerAdvice 可以实现对所有控制器异常的集中处理
- * 但是处理不了过滤器里的异常（jwt异常） @RestControllerAdvice不能捕获过滤器抛出的异常，对于此类异常需要特别处理
+ * 但是处理不了过滤器 filter 里的异常（jwt异常） @RestControllerAdvice不能捕获过滤器抛出的异常，对于此类异常需要特别处理(可以直接通过 response.getWriter 直接响应给前端)
  * <p>
  * 异常日志 已经被记录在 LogAspect
  */
@@ -30,7 +30,7 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public R_Error handleButinException(NoHandlerFoundException e) {
+    public R_Error handleNotFoundException(NoHandlerFoundException e) {
         return new R_Error(Status_Error.NOT_FOUND);
     }
 

@@ -64,6 +64,11 @@
       "name": "butin.jwt.expireTimeCache",
       "type": "java.lang.String",
       "description": "Description for butin.jwt.expireTimeCache."
+    },
+    {
+      "name": "swagger.package.user",
+      "type": "java.lang.String",
+      "description": "Description for swagger.package.user."
     }
   ]
 }

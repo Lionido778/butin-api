@@ -46,15 +46,21 @@ public class ShiroConfig {
         filterFactoryBean.setFilters(filterMap);
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("/webjars/**", "anon");
-//        map.put("/druid/**", "anon");
-        map.put("/swagger/**", "anon");
-        map.put("/v3/api-docs", "anon");
-        map.put("/swagger-ui/index.html", "anon");
+        //swagger
+        map.put("/webjars/**","anon");
+        map.put("/swagger-ui/**", "anon");
+        map.put("/swagger-ui.html", "anon");
         map.put("/swagger-resources/**", "anon");
+        map.put("/v3/api-docs", "anon");
+        map.put("/v2/api-docs", "anon");
+        //swagger-bootstrap-ui
+        map.put("/doc.html", "anon");
+        //druid
+        map.put("/druid/**", "anon");
+        //butin
         map.put("/user/register", "anon");
         map.put("/user/login", "anon");
-//        map.put("/test/**", "anon");
+        map.put("/test/**", "anon");
         map.put("/**", FilterType.OAUTH2);
 
         filterFactoryBean.setFilterChainDefinitionMap(map);

@@ -58,8 +58,7 @@ public class LogAspect {
         }
         Map<String, String> map = getUrlAndIp();
         log.debug("用户请求的url为：{}，访问ip地址为：{}", map.get("url"), map.get("ip"));
-        assert e != null;
-        log.error("发生未知异常==> {}", e.getMessage(), e);
+        log.error("发生未知异常==> {}", Objects.requireNonNull(e).getMessage(), e);
     }
 
     @Pointcut("execution(public * cn.codeprobe.butin.controller.*.*.*(..))")
@@ -71,7 +70,7 @@ public class LogAspect {
     public void requestBefore(JoinPoint point) {
         log.debug("======== RequestActionAspect ========");
         Map<String, String> map = getUrlAndIp();
-
+        //将用户请求（user,ip,url,time）记录到数据库
         accessDao.insert(new Action(getAccessUser(), map.get("ip"), map.get("url"), new DateTime()));
         log.debug("用户请求的url为：{}，访问ip地址为：{}", map.get("url"), map.get("ip"));
     }
