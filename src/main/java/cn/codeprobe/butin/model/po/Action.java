@@ -1,12 +1,12 @@
 package cn.codeprobe.butin.model.po;
 
-import cn.hutool.core.date.DateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * user_action
@@ -39,7 +39,7 @@ public class Action implements Serializable {
      * 用户请求url
      */
     @ApiModelProperty(value = "用户请求时间")
-    private DateTime time;
+    private LocalDateTime time;
 
     private static final long serialVersionUID = 1L;
 }

@@ -80,6 +80,6 @@ butin:
 mybatis:
   type-aliases-package: cn.codeprobe.butin.model.po  # 参数类型的包别名设置  设置这个以后xml映射文件在 parameterType 的值就不用写成全路径名了
   mapper-locations: classpath:mapper/*.xml        # 指向映射xml文件目录
-#  configuration:
+  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true

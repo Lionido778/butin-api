@@ -1,14 +1,18 @@
 package cn.codeprobe.butin.controller.test;
 
+import cn.codeprobe.butin.common.response.R;
+import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.model.po.User;
 import cn.codeprobe.butin.service.UserService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/test/user")
 public class TestUserController {
 
     // 注入service类
@@ -43,10 +47,16 @@ public class TestUserController {
     @RequestMapping(value = "/redis", method = RequestMethod.GET, produces = "application/json")
     public String redis() {
 
-        // 设置键"project-name"，值"qikegu-springboot-redis-demo"
+        // 设置键"project-name"，值"springboot-redis-demo"
         redis.opsForValue().set("project-name", "springboot-redis-demo");
         String value = (String) redis.opsForValue().get("project-name");
         return value;
+    }
+
+    // 测试系统时间
+    @GetMapping("/time")
+    public R getSystemTime() {
+        return R.ok(Status.OK.setMsg("系统时间")).put("time", new Date()).put("localTIme",LocalDateTime.now());
     }
 }
 

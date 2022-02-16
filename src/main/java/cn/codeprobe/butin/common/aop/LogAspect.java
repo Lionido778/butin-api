@@ -4,7 +4,6 @@ import cn.codeprobe.butin.common.utils.JwtUtil;
 import cn.codeprobe.butin.model.dto.UserDTO;
 import cn.codeprobe.butin.model.po.Action;
 import cn.codeprobe.butin.repository.AccessDao;
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -71,7 +71,7 @@ public class LogAspect {
         log.debug("======== RequestActionAspect ========");
         Map<String, String> map = getUrlAndIp();
         //将用户请求（user,ip,url,time）记录到数据库
-        accessDao.insert(new Action(getAccessUser(), map.get("ip"), map.get("url"), new DateTime()));
+        accessDao.insert(new Action(getAccessUser(), map.get("ip"), map.get("url"), LocalDateTime.now()));
         log.debug("用户请求的url为：{}，访问ip地址为：{}", map.get("url"), map.get("ip"));
     }
 

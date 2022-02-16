@@ -48,10 +48,8 @@ public class ShiroConfig {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //swagger
         map.put("/webjars/**","anon");
-        map.put("/swagger-ui/**", "anon");
         map.put("/swagger-ui.html", "anon");
         map.put("/swagger-resources/**", "anon");
-        map.put("/v3/api-docs", "anon");
         map.put("/v2/api-docs", "anon");
         //swagger-bootstrap-ui
         map.put("/doc.html", "anon");
