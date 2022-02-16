@@ -1,7 +1,6 @@
 package cn.codeprobe.butin.controller.portal;
 
 import cn.codeprobe.butin.common.exception.ButinException;
-import cn.codeprobe.butin.common.exception.response.Status_Error;
 import cn.codeprobe.butin.common.response.R;
 import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.utils.JwtUtil;
@@ -49,7 +48,7 @@ public class TestRootController {
 
     @GetMapping("/exception")
     public R E() {
-        throw new ButinException(Status_Error.TEST);
+        throw new ButinException(Status.TEST);
     }
 
     @PostMapping("/testVO")
@@ -62,13 +61,13 @@ public class TestRootController {
     public R createToken() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", 1);
-        return R.ok(Status.LOGIN).put("token", jwtUtil.createToken(map));
+        return R.ok(Status.LOGIN_SUCCESS).put("token", jwtUtil.createToken(map));
     }
 
     @GetMapping("/decodeToken")
     public R decodeToken(String token) {
         Map<String, Object> map = jwtUtil.decodeToken(token);
-        return R.ok(Status.LOGIN).put((HashMap<String, Object>) map);
+        return R.ok(Status.LOGIN_SUCCESS).put((HashMap<String, Object>) map);
     }
 
     @GetMapping("/verifyToken")

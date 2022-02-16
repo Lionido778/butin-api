@@ -1,6 +1,6 @@
 package cn.codeprobe.butin.common.security.realm;
 
-import cn.codeprobe.butin.common.exception.response.Status_Error;
+import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.security.token.OAuth2Token;
 import cn.codeprobe.butin.common.utils.JwtUtil;
 import cn.codeprobe.butin.model.po.User;
@@ -67,7 +67,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         Integer userId = (Integer) claims.get("userId");
         User user = userDao.getUserById((Long.valueOf(userId)));
         if (user == null) {
-            throw new LockedAccountException(Status_Error.UNAUTHORIZED.getErrorMsg());
+            throw new LockedAccountException(Status.ACCOUNT_LOCKED.getMsg());
         }
         return new SimpleAuthenticationInfo(user, token, this.getName());
     }

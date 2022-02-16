@@ -1,7 +1,7 @@
 package cn.codeprobe.butin.service.impl;
 
 import cn.codeprobe.butin.common.exception.ButinException;
-import cn.codeprobe.butin.common.exception.response.Status_Error;
+import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.utils.JwtUtil;
 import cn.codeprobe.butin.model.dto.UserDTO;
 import cn.codeprobe.butin.model.po.User;
@@ -49,10 +49,9 @@ public class UserServiceImpl implements UserService {
     public UserDTO login(LoginVO loginVO) {
         User user = userDao.getUserByUsername(loginVO.getNickname());
         if (user == null || !user.getPassword().equals(loginVO.getPassword())) {
-            throw new ButinException(Status_Error.LOGIN_FAILURE);
+            throw new ButinException(Status.LOGIN_FAILURE);
         }
-        UserDTO userDTO = new UserDTO(user.getId(), user.getNickname(), user.getMobile(), user.getRole());
-        return userDTO;
+        return new UserDTO(user.getId(), user.getNickname(), user.getMobile(), user.getRole());
     }
 
 

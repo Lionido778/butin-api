@@ -95,7 +95,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
         String token = req.getHeader(tokenInHeader);
         if (StrUtil.isBlank(token)) {
             //令牌为空 登录失败 响应前端失败信息
-            responseJson(servletResponse, JSONUtil.toJsonStr(R.error(Status.NOT_TOKEN)));
+            responseJson(servletResponse, JSONUtil.toJsonStr(R.error(Status.NULL_TOKEN)));
             return false;
         }
         try {
@@ -113,7 +113,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
             threadLocalToken.saveToken(refreshToken);
             redisTemplate.opsForValue().set(refreshToken, claims, expireTimeCache, TimeUnit.DAYS);
         } catch (Exception e) {
-            responseJson(servletResponse, JSONUtil.toJsonStr(R.error(Status.LOGIN_FAILURE)));
+            responseJson(servletResponse, JSONUtil.toJsonStr(R.error(Status.INVALID_TOKEN)));
             return false;
         }
         //执行认证登录

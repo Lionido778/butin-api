@@ -64,7 +64,7 @@ public class UserController {
         map.put("user", JSONUtil.parse(userDTO));
         String token = jwtUtil.createToken(map);
         redisTemplate.opsForValue().set(token, map, expireTimeCache, TimeUnit.DAYS);
-        return R.ok(Status.LOGIN).put(this.header, token);
+        return R.ok(Status.LOGIN_SUCCESS).put(this.header, token);
     }
 
 

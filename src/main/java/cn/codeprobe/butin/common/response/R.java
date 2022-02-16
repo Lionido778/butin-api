@@ -19,7 +19,7 @@ public class R extends LinkedHashMap<String, Object> {
 
     private static final String CODE_TAG = "code";
     private static final String MESSAGE_TAG = "msg";
-    private static final String DATA_TAG = "isSuccess";
+    private static final String STATE_TAG = "isSuccess";
 
 
     public R put(String key, Object value) {
@@ -33,20 +33,32 @@ public class R extends LinkedHashMap<String, Object> {
     }
 
     public static R ok(Status status) {
-        R r = new R();
-        r.put(CODE_TAG, status.getCode());
-        r.put(MESSAGE_TAG, status.getMsg());
-        r.put(DATA_TAG, status.isSuccess());
+        R r = ok(status.getCode(), status.getMsg());
+        r.put(STATE_TAG, status.isSuccess());
         return r;
     }
+
+    public static R ok(int code, String msg) {
+        R r = new R();
+        r.put(CODE_TAG, code);
+        r.put(MESSAGE_TAG, msg);
+        r.put(STATE_TAG, true);
+        return r;
+    }
+
 
     public static R error(Status status) {
-        R r = new R();
-        r.put(CODE_TAG, status.getCode());
-        r.put(MESSAGE_TAG, status.getMsg());
-        r.put(DATA_TAG, status.isSuccess());
+        R r = error(status.getCode(), status.getMsg());
+        r.put(STATE_TAG, status.isSuccess());
         return r;
     }
 
+    public static R error(int code, String msg) {
+        R r = new R();
+        r.put(CODE_TAG, code);
+        r.put(MESSAGE_TAG, msg);
+        r.put(STATE_TAG, false);
+        return r;
+    }
 
 }

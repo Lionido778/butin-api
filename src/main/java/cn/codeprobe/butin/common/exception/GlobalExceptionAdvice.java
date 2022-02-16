@@ -1,9 +1,8 @@
 package cn.codeprobe.butin.common.exception;
 
-import cn.codeprobe.butin.common.exception.response.R_Error;
-import cn.codeprobe.butin.common.exception.response.Status_Error;
+import cn.codeprobe.butin.common.response.R;
+import cn.codeprobe.butin.common.response.Status;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -30,8 +29,8 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public R_Error handleNotFoundException(NoHandlerFoundException e) {
-        return new R_Error(Status_Error.NOT_FOUND);
+    public R handleNotFoundException(NoHandlerFoundException e) {
+        return R.error(Status.NOT_FOUND);
     }
 
     /**
@@ -39,8 +38,8 @@ public class GlobalExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public R_Error handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e) {
-        return new R_Error(Status_Error.METHOD_NOT_ALLOWED);
+    public R handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e) {
+        return R.error(Status.METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -48,17 +47,8 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(ButinException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R_Error handleButinException(ButinException e) {
-        return new R_Error(e.getStatusError().getErrorCode(), e.getMessage());
-    }
-
-    /**
-     * 捕获自定义业务异常
-     */
-    @ExceptionHandler(ShiroException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public R_Error handleShiroException(ShiroException e) {
-        return new R_Error(4001, e.getMessage());
+    public R handleButinException(ButinException e) {
+        return R.error(e.getStatus());
     }
 
     /**
@@ -66,27 +56,35 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R_Error handleValidationException(MethodArgumentNotValidException e) {
+    public R handleValidationException(MethodArgumentNotValidException e) {
         String message = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
-        return new R_Error(Status_Error.VALIDATION.setErrorMsg(message));
+        return R.error(Status.VALIDATION.setMsg(message));
     }
-
 
     /**
      * 捕获未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public R_Error handleRuntimeException(RuntimeException e) {
-        return new R_Error(Status_Error.COMMON);
+    public R handleRuntimeException(RuntimeException e) {
+        return R.error(Status.INTERNAL_ERROR);
+    }
+
+    /**
+     * 捕获未知异常
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public R handleException(Exception e) {
+        return R.error(Status.INTERNAL_ERROR);
     }
 
     /**
      * 捕获默认异常处理，前面未处理
      */
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R_Error handleDefaultException(Exception e) {
-        return new R_Error(Status_Error.COMMON);
+    public R handleDefaultException(Throwable e) {
+        return R.error(Status.INTERNAL_ERROR);
     }
 
 }
