@@ -3,8 +3,8 @@ package cn.codeprobe.butin.common.security.realm;
 import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.security.token.OAuth2Token;
 import cn.codeprobe.butin.common.utils.JwtUtil;
-import cn.codeprobe.butin.model.po.User;
-import cn.codeprobe.butin.repository.UserDao;
+import cn.codeprobe.butin.model.po.testUser;
+import cn.codeprobe.butin.repository.TestUserDao;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -26,7 +26,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     private JwtUtil jwtUtil;
 
     @Resource
-    private UserDao userDao;
+    private TestUserDao testUserDao;
 
     /**
      * 所以这个方法必须重写，因为我们是自定义token，shiro 框架是默认 support: UsernamePasswordToken
@@ -46,8 +46,8 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // user 这里获取到的user 是 SimpleAuthenticationInfo(user, token, this.getName()) 放入的user
-        User user = (User) principalCollection.getPrimaryPrincipal();
-        String role = user.getRole();
+        testUser testUser = (testUser) principalCollection.getPrimaryPrincipal();
+        String role = testUser.getRole();
         LinkedHashSet<String> roles = new LinkedHashSet<>();
         return new SimpleAuthorizationInfo(roles);
     }
@@ -65,10 +65,10 @@ public class OAuth2Realm extends AuthorizingRealm {
         String token = (String) authenticationToken.getPrincipal();
         Map<String, Object> claims = jwtUtil.decodeToken(token);
         Integer userId = (Integer) claims.get("userId");
-        User user = userDao.getUserById((Long.valueOf(userId)));
-        if (user == null) {
+        testUser testUser = testUserDao.getUserById((Long.valueOf(userId)));
+        if (testUser == null) {
             throw new LockedAccountException(Status.ACCOUNT_LOCKED.getMsg());
         }
-        return new SimpleAuthenticationInfo(user, token, this.getName());
+        return new SimpleAuthenticationInfo(testUser, token, this.getName());
     }
 }

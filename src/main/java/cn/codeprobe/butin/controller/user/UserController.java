@@ -3,10 +3,10 @@ package cn.codeprobe.butin.controller.user;
 import cn.codeprobe.butin.common.response.R;
 import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.utils.JwtUtil;
-import cn.codeprobe.butin.model.dto.UserDTO;
-import cn.codeprobe.butin.model.po.User;
+import cn.codeprobe.butin.model.dto.testUserDTO;
+import cn.codeprobe.butin.model.po.testUser;
 import cn.codeprobe.butin.model.vo.LoginVO;
-import cn.codeprobe.butin.service.UserService;
+import cn.codeprobe.butin.service.TestUserService;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private TestUserService testUserService;
 
     @Resource
     private JwtUtil jwtUtil;
@@ -46,8 +46,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public R getUserById(@PathVariable("id") Long userId) {
-        User user = userService.getUserById(userId);
-        return R.ok(Status.OK).put("data", user);
+        testUser testUser = testUserService.getUserById(userId);
+        return R.ok(Status.OK).put("data", testUser);
     }
 
     @PostMapping("/login")
@@ -57,11 +57,11 @@ public class UserController {
         if (StrUtil.isNotBlank(oldToken)) {
             redisTemplate.delete(oldToken);
         }
-        UserDTO userDTO = userService.login(loginVO);
+        testUserDTO testUserDTO = testUserService.login(loginVO);
         Map<String, Object> map = new HashMap<>();
-        map.put("userId", userDTO.getId());
+        map.put("userId", testUserDTO.getId());
         // Jwt claim 支持的类型 map list 其他基础类型， 如果是其他自定义，需要转换为json
-        map.put("user", JSONUtil.parse(userDTO));
+        map.put("user", JSONUtil.parse(testUserDTO));
         String token = jwtUtil.createToken(map);
         redisTemplate.opsForValue().set(token, map, expireTimeCache, TimeUnit.DAYS);
         return R.ok(Status.LOGIN_SUCCESS).put(this.header, token);

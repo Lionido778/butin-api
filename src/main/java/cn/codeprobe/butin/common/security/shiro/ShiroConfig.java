@@ -59,7 +59,9 @@ public class ShiroConfig {
         map.put("/user/register", "anon");
         map.put("/user/login", "anon");
         map.put("/test/**", "anon");
+        map.put("/portal/**", "anon");
         map.put("/**", FilterType.OAUTH2);
+
 
         filterFactoryBean.setFilterChainDefinitionMap(map);
         return filterFactoryBean;

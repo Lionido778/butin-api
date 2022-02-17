@@ -1,7 +1,7 @@
 package cn.codeprobe.butin.common.aop;
 
 import cn.codeprobe.butin.common.utils.JwtUtil;
-import cn.codeprobe.butin.model.dto.UserDTO;
+import cn.codeprobe.butin.model.dto.testUserDTO;
 import cn.codeprobe.butin.model.po.Action;
 import cn.codeprobe.butin.repository.AccessDao;
 import cn.hutool.core.util.StrUtil;
@@ -99,9 +99,9 @@ public class LogAspect {
         }
         Map<String, Object> map = jwtUtil.decodeToken(token);
         Object user = map.get("user");
-        UserDTO userDTO = JSONUtil.toBean(JSONUtil.toJsonStr(user), UserDTO.class);
-        if (userDTO != null) {
-            currentUser = userDTO.getNickname();
+        testUserDTO testUserDTO = JSONUtil.toBean(JSONUtil.toJsonStr(user), testUserDTO.class);
+        if (testUserDTO != null) {
+            currentUser = testUserDTO.getNickname();
         }
         return currentUser;
     }

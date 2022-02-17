@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.codeprobe.butin.repository.ArticleDao">
+    <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.Article">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="body_id" jdbcType="BIGINT" property="bodyId"/>
+        <result column="author_id" jdbcType="BIGINT" property="authorId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="tag_id" jdbcType="BIGINT" property="tagId"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="comment_counts" jdbcType="INTEGER" property="commentCounts"/>
+        <result column="view_counts" jdbcType="INTEGER" property="viewCounts"/>
+        <result column="weight" jdbcType="INTEGER" property="weight"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , title, body_id, author_id, category_id, tag_id, summary, comment_counts, view_counts,
+    weight, create_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_article
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="select" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM bt_article
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from bt_article
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Article"
+            useGeneratedKeys="true">
+        insert into bt_article (title, body_id, author_id,
+                                category_id, tag_id, summary,
+                                comment_counts, view_counts, weight,
+                                create_date)
+        values (#{title,jdbcType=VARCHAR}, #{bodyId,jdbcType=BIGINT}, #{authorId,jdbcType=BIGINT},
+                #{categoryId,jdbcType=INTEGER}, #{tagId,jdbcType=BIGINT}, #{summary,jdbcType=VARCHAR},
+                #{commentCounts,jdbcType=INTEGER}, #{viewCounts,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER},
+                #{createDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Article"
+            useGeneratedKeys="true">
+        insert into bt_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                title,
+            </if>
+            <if test="bodyId != null">
+                body_id,
+            </if>
+            <if test="authorId != null">
+                author_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="tagId != null">
+                tag_id,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="commentCounts != null">
+                comment_counts,
+            </if>
+            <if test="viewCounts != null">
+                view_counts,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="bodyId != null">
+                #{bodyId,jdbcType=BIGINT},
+            </if>
+            <if test="authorId != null">
+                #{authorId,jdbcType=BIGINT},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="tagId != null">
+                #{tagId,jdbcType=BIGINT},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="commentCounts != null">
+                #{commentCounts,jdbcType=INTEGER},
+            </if>
+            <if test="viewCounts != null">
+                #{viewCounts,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.Article">
+        update bt_article
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="bodyId != null">
+                body_id = #{bodyId,jdbcType=BIGINT},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=BIGINT},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="tagId != null">
+                tag_id = #{tagId,jdbcType=BIGINT},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=VARCHAR},
+            </if>
+            <if test="commentCounts != null">
+                comment_counts = #{commentCounts,jdbcType=INTEGER},
+            </if>
+            <if test="viewCounts != null">
+                view_counts = #{viewCounts,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.Article">
+        update bt_article
+        set title          = #{title,jdbcType=VARCHAR},
+            body_id        = #{bodyId,jdbcType=BIGINT},
+            author_id      = #{authorId,jdbcType=BIGINT},
+            category_id    = #{categoryId,jdbcType=INTEGER},
+            tag_id         = #{tagId,jdbcType=BIGINT},
+            summary        = #{summary,jdbcType=VARCHAR},
+            comment_counts = #{commentCounts,jdbcType=INTEGER},
+            view_counts    = #{viewCounts,jdbcType=INTEGER},
+            weight         = #{weight,jdbcType=INTEGER},
+            create_date    = #{createDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

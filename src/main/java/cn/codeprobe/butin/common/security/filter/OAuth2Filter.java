@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
@@ -77,6 +78,12 @@ public class OAuth2Filter extends AuthenticatingFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+        HttpServletRequest req = (HttpServletRequest) request;
+        String methodName = RequestMethod.OPTIONS.name();
+        String reqMethod = req.getMethod();
+        if(req.getMethod().equals(RequestMethod.OPTIONS.name())){
+            return true;
+        }
         return super.isAccessAllowed(request, response, mappedValue);
     }
 

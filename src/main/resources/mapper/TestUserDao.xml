@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.codeprobe.butin.repository.TestUserDao">
+
+    <select id="getUserById" parameterType="long" resultType="cn.codeprobe.butin.model.po.testUser">
+        SELECT id, nickname, mobile, password, 'role'
+        FROM testUser
+        WHERE id = #{userId}
+    </select>
+
+    <update id="updateUserById">
+        UPDATE testUser
+        SET nickname = #{param2}
+        WHERE id = #{param1}
+    </update>
+
+    <select id="getUserByUsername" parameterType="string" resultType="cn.codeprobe.butin.model.po.testUser">
+        SELECT id, nickname, mobile, password, 'role'
+        FROM testUser
+        WHERE nickname = #{nickname}
+    </select>
+
+</mapper>

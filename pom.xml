@@ -40,7 +40,7 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
-        <!--hutools-->
+        <!--hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -108,12 +108,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
         </dependency>
+        <!--pagehelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.1</version>
+        </dependency>
         <!--shiro-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.shiro</groupId>-->
-        <!--            <artifactId>shiro-web</artifactId>-->
-        <!--            <version>1.8.0</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
@@ -130,6 +131,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
+            <!-- 当optional为true时，表示项目被打包时不会被一并打包进项目中 -->
             <optional>true</optional>
         </dependency>
         <!--test-->
