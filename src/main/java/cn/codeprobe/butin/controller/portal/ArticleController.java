@@ -51,6 +51,20 @@ public class ArticleController {
     }
 
 
+    @ApiOperation("标签下的文章列表")
+    @GetMapping("/articles/tag/{tagId}")
+    public R getArticleByTag(@PathVariable("tagId") Long tagId) {
+        List<ArticleDTO> articleDTOS = articleService.findArticleByTagId(tagId);
+        return R.ok(Status.OK).put("data", articleDTOS);
+    }
+
+
+    @ApiOperation("分类的文章列表")
+    @GetMapping("/articles/category/{categoryId}")
+    public R getArticleByCategory(@PathVariable("categoryId") Long categoryId) {
+        List<ArticleDTO> articleDTOS = articleService.findArticleByCategoryId(categoryId);
+        return R.ok(Status.OK).put("data", articleDTOS);
+    }
 
 
     @ApiOperation("获取最热文章")

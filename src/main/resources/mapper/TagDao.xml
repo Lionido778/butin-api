@@ -28,11 +28,18 @@
         FROM bt_tag
     </select>
 
+    <select id="selectHotTags" parameterType="int" resultType="long">
+        SELECT tag_id, COUNT(*) AS num
+        FROM bt_article_tag
+        GROUP BY tag_id
+        ORDER BY num DESC LIMIT #{rank}
+    </select>
+
     <select id="selectByIds" resultMap="BaseResultMap" parameterType="list">
         SELECT
         <include refid="Base_Column_List"></include>
         FROM bt_tag WHERE id in
-        <foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>

@@ -85,4 +85,10 @@
     </foreach>
   </select>
 
+  <select id="select" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM bt_category
+  </select>
+
 </mapper>

@@ -19,5 +19,7 @@ public interface ArticleCategoryDao {
 
     int updateByPrimaryKey(ArticleCategory record);
 
-    List<Long> selectCategoryByArticleId(long articleId);
+    List<Long> selectCategoryByArticleId(Long articleId);
+
+    List<Long> selectArticleByCategoryId(Long categoryId);
 }

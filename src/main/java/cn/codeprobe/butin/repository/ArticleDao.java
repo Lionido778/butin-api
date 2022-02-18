@@ -20,4 +20,6 @@ public interface ArticleDao {
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);
+
+    List<Article> selectByIds(List<Long> articleIds);
 }

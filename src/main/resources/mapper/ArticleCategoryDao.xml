@@ -65,10 +65,16 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectCategoryByArticleId" resultType="java.lang.Long" parameterType="long">
+    <select id="selectCategoryByArticleId" resultType="java.lang.Long" parameterType="java.lang.Long">
         SELECT category_id
         FROM bt_article_category
         WHERE article_id = #{articleId}
+    </select>
+
+    <select id="selectArticleByCategoryId" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT article_id
+        FROM bt_article_category
+        WHERE category_id = #{categoryId}
     </select>
 
 

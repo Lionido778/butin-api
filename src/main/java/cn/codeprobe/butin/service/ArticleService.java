@@ -12,4 +12,8 @@ public interface ArticleService {
     List<ArticleDTO> findArticles();
 
     ArticleDTO findArticleById(Long id);
+
+    List<ArticleDTO> findArticleByTagId(Long id);
+
+    List<ArticleDTO> findArticleByCategoryId(Long categoryId);
 }

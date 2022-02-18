@@ -32,6 +32,15 @@
         FROM bt_article
     </select>
 
+    <select id="selectByIds" resultMap="BaseResultMap" parameterType="list">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM bt_article WHERE id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+            #{item}
+        </foreach>
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from bt_article

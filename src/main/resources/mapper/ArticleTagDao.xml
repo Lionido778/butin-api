@@ -69,4 +69,10 @@
     WHERE article_id = #{articleId}
   </select>
 
+  <select id="selectArticleByTagId" resultType="java.lang.Long" parameterType="long">
+    SELECT article_id
+    FROM bt_article_tag
+    WHERE tag_id = #{TagId}
+  </select>
+
 </mapper>

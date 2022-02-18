@@ -60,6 +60,28 @@ public class ArticleServiceImpl implements ArticleService {
         return Article2DTO(article);
     }
 
+    @Override
+    public List<ArticleDTO> findArticleByTagId(Long tagId) {
+        List<Long> articleIds = articleTagDao.selectArticleByTagId(tagId);
+        List<Article> articles = articleDao.selectByIds(articleIds);
+        ArrayList<ArticleDTO> articleDTOS = new ArrayList<>();
+        for (Article article : articles) {
+            articleDTOS.add(Article2DTO(article));
+        }
+        return articleDTOS;
+    }
+
+    @Override
+    public List<ArticleDTO> findArticleByCategoryId(Long categoryId) {
+        List<Long> articleIds = articleCategoryDao.selectArticleByCategoryId(categoryId);
+        List<Article> articles = articleDao.selectByIds(articleIds);
+        ArrayList<ArticleDTO> articleDTOS = new ArrayList<>();
+        for (Article article : articles) {
+            articleDTOS.add(Article2DTO(article));
+        }
+        return articleDTOS;
+    }
+
 
     private ArticleDTO Article2DTO(Article article) {
         User user = userDao.selectById(article.getAuthorId());

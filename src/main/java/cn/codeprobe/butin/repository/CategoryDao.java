@@ -20,4 +20,6 @@ public interface CategoryDao {
     int updateByPrimaryKey(Category record);
 
     List<Category> selectByIds(List<Long> ids);
+
+    List<Category> select();
 }

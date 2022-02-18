@@ -19,4 +19,6 @@ public interface ArticleTagDao {
 
     //根据文章id获取标签
     List<Long> selectTagsByArticleId(long articleId);
+
+    List<Long> selectArticleByTagId(Long TagId);
 }

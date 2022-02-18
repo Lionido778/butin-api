@@ -1,5 +1,6 @@
 package cn.codeprobe.butin.service;
 
+import cn.codeprobe.butin.model.dto.TagDTO;
 import cn.codeprobe.butin.model.po.Tag;
 
 import java.util.List;
@@ -9,7 +10,11 @@ import java.util.List;
  */
 public interface TagService {
 
-    List<Tag> findAll();
+    List<TagDTO> findTags();
 
     List<Tag> findTagsByArticleId(long articleId);
+
+    List<TagDTO> findTagsHot(int rank);
+
+    TagDTO findTag(Long id);
 }
