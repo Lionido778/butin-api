@@ -1,78 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeprobe.butin.repository.ArticleTagDao">
-  <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.ArticleTag">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="article_id" jdbcType="BIGINT" property="articleId" />
-    <result column="tag_id" jdbcType="BIGINT" property="tagId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.ArticleTag">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="article_id" jdbcType="BIGINT" property="articleId"/>
+        <result column="tag_id" jdbcType="BIGINT" property="tagId"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    id, article_id, tag_id
-  </sql>
+    <sql id="Base_Column_List">
+        id
+        , article_id, tag_id
+    </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bt_article_tag
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from bt_article_tag
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleTag" useGeneratedKeys="true">
-    insert into bt_article_tag (article_id, tag_id)
-    values (#{articleId,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleTag" useGeneratedKeys="true">
-    insert into bt_article_tag
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="tagId != null">
-        tag_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="tagId != null">
-        #{tagId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.ArticleTag">
-    update bt_article_tag
-    <set>
-      <if test="articleId != null">
-        article_id = #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="tagId != null">
-        tag_id = #{tagId,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.ArticleTag">
-    update bt_article_tag
-    set article_id = #{articleId,jdbcType=BIGINT},
-      tag_id = #{tagId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
 
-  <select id="selectTagsByArticleId" resultType="java.lang.Long" parameterType="long">
-    SELECT tag_id
-    FROM bt_article_tag
-    WHERE article_id = #{articleId}
-  </select>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleTag"
+            useGeneratedKeys="true">
+        insert into bt_article_tag (article_id, tag_id, deleted)
+        values (#{articleId,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT}, #{deleted})
+    </insert>
 
-  <select id="selectArticleByTagId" resultType="java.lang.Long" parameterType="long">
-    SELECT article_id
-    FROM bt_article_tag
-    WHERE tag_id = #{TagId}
-  </select>
+
+    <update id="deleteByModifyDeleted" parameterType="java.lang.Long">
+        update bt_article_tag
+        set deleted = 0
+        where article_id = #{articleId}
+    </update>
+
+    <select id="selectTagsByArticleId" resultType="java.lang.Long" parameterType="long">
+        SELECT tag_id
+        FROM bt_article_tag
+        WHERE article_id = #{articleId}
+          AND deleted = 1
+    </select>
+
+    <select id="selectArticleByTagId" resultType="java.lang.Long" parameterType="long">
+        SELECT article_id
+        FROM bt_article_tag
+        WHERE tag_id = #{TagId}
+          AND deleted = 1
+    </select>
 
 </mapper>

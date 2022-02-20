@@ -3,17 +3,17 @@ package cn.codeprobe.butin.common.security.realm;
 import cn.codeprobe.butin.common.response.Status;
 import cn.codeprobe.butin.common.security.token.OAuth2Token;
 import cn.codeprobe.butin.common.utils.JwtUtil;
-import cn.codeprobe.butin.model.po.testUser;
-import cn.codeprobe.butin.repository.TestUserDao;
+import cn.codeprobe.butin.model.dto.UserDTO;
+import cn.codeprobe.butin.model.po.User;
+import cn.codeprobe.butin.repository.UserDao;
+import cn.hutool.core.bean.BeanUtil;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.LinkedHashSet;
 import java.util.Map;
 
 /**
@@ -26,7 +26,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     private JwtUtil jwtUtil;
 
     @Resource
-    private TestUserDao testUserDao;
+    private UserDao userDao;
 
     /**
      * 所以这个方法必须重写，因为我们是自定义token，shiro 框架是默认 support: UsernamePasswordToken
@@ -46,10 +46,10 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         // user 这里获取到的user 是 SimpleAuthenticationInfo(user, token, this.getName()) 放入的user
-        testUser testUser = (testUser) principalCollection.getPrimaryPrincipal();
-        String role = testUser.getRole();
-        LinkedHashSet<String> roles = new LinkedHashSet<>();
-        return new SimpleAuthorizationInfo(roles);
+//        testUser testUser = (testUser) principalCollection.getPrimaryPrincipal();
+//        String role = testUser.getRole();
+//        LinkedHashSet<String> roles = new LinkedHashSet<>();
+        return null;
     }
 
     /**
@@ -65,10 +65,12 @@ public class OAuth2Realm extends AuthorizingRealm {
         String token = (String) authenticationToken.getPrincipal();
         Map<String, Object> claims = jwtUtil.decodeToken(token);
         Integer userId = (Integer) claims.get("userId");
-        testUser testUser = testUserDao.getUserById((Long.valueOf(userId)));
-        if (testUser == null) {
+        UserDTO userDTO = new UserDTO();
+        User user = userDao.selectById(Long.parseLong(userId.toString()));
+        if (user == null) {
             throw new LockedAccountException(Status.ACCOUNT_LOCKED.getMsg());
         }
-        return new SimpleAuthenticationInfo(testUser, token, this.getName());
+        BeanUtil.copyProperties(user, userDTO);
+        return new SimpleAuthenticationInfo(userDTO, token, this.getName());
     }
 }

@@ -16,7 +16,7 @@ public interface TagDao {
     //查询所有标签
     List<Tag> select();
 
-    //查询标签多个id
+    //查询标签通过多个id
     List<Tag> selectByIds(List<Long> ids);
 
     //更具id查询标签

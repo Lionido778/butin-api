@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * bt_tag
- * @author 
+ *
+ * @author
  */
 @ApiModel
 @Data
@@ -18,13 +19,13 @@ public class Tag implements Serializable {
     /**
      * 标签图标
      */
-    @ApiModelProperty(value="标签图标")
+    @ApiModelProperty(value = "标签图标")
     private String icon;
 
     /**
      * 标签名
      */
-    @ApiModelProperty(value="标签名")
+    @ApiModelProperty(value = "标签名")
     private String name;
 
     private static final long serialVersionUID = 1L;

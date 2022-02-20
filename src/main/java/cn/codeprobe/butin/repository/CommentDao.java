@@ -20,4 +20,10 @@ public interface CommentDao {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    int selectParentLevel(Long parentId);
+
+    List<Comment> selectCommentChildren(Long articleId, Long parentId);
+
+    void updateByArticleId(Long oldArticleId, Long newArticleId);
 }

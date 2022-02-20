@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 /**
  * bt_tag
- * @author 
+ *
+ * @author
  */
-@ApiModel(value="cn.codeprobe.butin.model.po.BtTag")
+@ApiModel(value = "cn.codeprobe.butin.model.po.BtTag")
 @Data
 public class TagDTO implements Serializable {
     private Long id;
@@ -18,13 +19,13 @@ public class TagDTO implements Serializable {
     /**
      * 标签图标
      */
-    @ApiModelProperty(value="标签图标")
+    @ApiModelProperty(value = "标签图标")
     private String icon;
 
     /**
      * 标签名
      */
-    @ApiModelProperty(value="标签名")
+    @ApiModelProperty(value = "标签名")
     private String name;
 
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,7 @@
 package cn.codeprobe.butin.common.aop;
 
 import cn.codeprobe.butin.common.utils.JwtUtil;
-import cn.codeprobe.butin.model.dto.testUserDTO;
-import cn.codeprobe.butin.model.po.Action;
+import cn.codeprobe.butin.model.dto.UserDTO;
 import cn.codeprobe.butin.repository.AccessDao;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -18,7 +17,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -71,8 +69,8 @@ public class LogAspect {
         log.debug("======== RequestActionAspect ========");
         Map<String, String> map = getUrlAndIp();
         //将用户请求（user,ip,url,time）记录到数据库
-        accessDao.insert(new Action(getAccessUser(), map.get("ip"), map.get("url"), LocalDateTime.now()));
-        log.debug("用户请求的url为：{}，访问ip地址为：{}", map.get("url"), map.get("ip"));
+//        accessDao.insert(new Action(getAccessUser(), map.get("ip"), map.get("url"), LocalDateTime.now()));
+//        log.debug("用户请求的url为：{}，访问ip地址为：{}", map.get("url"), map.get("ip"));
     }
 
     private Map<String, String> getUrlAndIp() {
@@ -99,7 +97,7 @@ public class LogAspect {
         }
         Map<String, Object> map = jwtUtil.decodeToken(token);
         Object user = map.get("user");
-        testUserDTO testUserDTO = JSONUtil.toBean(JSONUtil.toJsonStr(user), testUserDTO.class);
+        UserDTO testUserDTO = JSONUtil.toBean(JSONUtil.toJsonStr(user), UserDTO.class);
         if (testUserDTO != null) {
             currentUser = testUserDTO.getNickname();
         }

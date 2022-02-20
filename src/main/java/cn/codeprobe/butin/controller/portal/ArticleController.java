@@ -3,7 +3,7 @@ package cn.codeprobe.butin.controller.portal;
 import cn.codeprobe.butin.common.constant.PageParam;
 import cn.codeprobe.butin.common.response.R;
 import cn.codeprobe.butin.common.response.Status;
-import cn.codeprobe.butin.model.dto.ArticleDTO;
+import cn.codeprobe.butin.model.vo.*;
 import cn.codeprobe.butin.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
@@ -39,50 +39,59 @@ public class ArticleController {
     public R getArticleList(@RequestBody PageParam pageParam) {
         PageHelper.startPage(pageParam.getPage(), pageParam.getPageSize());
         PageHelper.orderBy("create_date desc");
-        List<ArticleDTO> articleDTOList = articleService.findArticles();
-        return R.ok(Status.OK).put("data", articleDTOList);
+        List<ArticleListVO> articleListVOList = articleService.findArticles();
+        return R.ok(Status.OK).put("data", articleListVOList);
     }
 
-    @ApiOperation("获取文章")
+    @ApiOperation("浏览文章")
     @GetMapping("/articles/view/{id}")
+    public R getViewArticle(@PathVariable("id") Long id) {
+        ArticleViewVO articleViewVO = articleService.findArticleById(id);
+        return R.ok(Status.OK).put("data", articleViewVO);
+    }
+
+    @ApiOperation("编辑文章")
+    @GetMapping("/article/{id}")
     public R getArticle(@PathVariable("id") Long id) {
-        ArticleDTO articleDTO = articleService.findArticleById(id);
-        return R.ok(Status.OK).put("data", articleDTO);
+        return getViewArticle(id);
     }
 
 
     @ApiOperation("标签下的文章列表")
     @GetMapping("/articles/tag/{tagId}")
     public R getArticleByTag(@PathVariable("tagId") Long tagId) {
-        List<ArticleDTO> articleDTOS = articleService.findArticleByTagId(tagId);
-        return R.ok(Status.OK).put("data", articleDTOS);
+        List<ArticleListVO> articleListVOS = articleService.findArticleByTagId(tagId);
+        return R.ok(Status.OK).put("data", articleListVOS);
     }
 
 
     @ApiOperation("分类的文章列表")
     @GetMapping("/articles/category/{categoryId}")
     public R getArticleByCategory(@PathVariable("categoryId") Long categoryId) {
-        List<ArticleDTO> articleDTOS = articleService.findArticleByCategoryId(categoryId);
-        return R.ok(Status.OK).put("data", articleDTOS);
+        List<ArticleListVO> articleListVOS = articleService.findArticleByCategoryId(categoryId);
+        return R.ok(Status.OK).put("data", articleListVOS);
     }
 
 
     @ApiOperation("获取最热文章")
-    @GetMapping("/articles/hot")
-    public R getArticleHot() {
-        return R.ok(Status.OK).put("data", null);
+    @GetMapping("/articles/hot/{limit}")
+    public R getArticleHot(@PathVariable("limit") int limit) {
+        List<ArticleHotVO> articleHotVOS = articleService.findArticleHot(limit);
+        return R.ok(Status.OK).put("data", articleHotVOS);
     }
 
     @ApiOperation("获取最新文章")
-    @GetMapping("/articles/new")
-    public R getArticleNew() {
-        return R.ok(Status.OK).put("data", null);
+    @GetMapping("/articles/new/{limit}")
+    public R getArticleNew(@PathVariable("limit") int limit) {
+        List<ArticleNewVO> articleNewVOS = articleService.findArticleNew(limit);
+        return R.ok(Status.OK).put("data", articleNewVOS);
     }
 
     @ApiOperation("获取文章归档")
     @GetMapping("/articles/listArchives")
     public R getArticleArchivesList() {
-        return R.ok(Status.OK).put("data", null);
+        List<ArticleArchiveVO> articleArchives = articleService.findArticleArchives();
+        return R.ok(Status.OK).put("data", articleArchives);
     }
 
 

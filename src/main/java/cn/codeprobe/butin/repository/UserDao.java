@@ -3,17 +3,18 @@ package cn.codeprobe.butin.repository;
 import cn.codeprobe.butin.model.po.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDateTime;
+
 @Mapper
 public interface UserDao {
-    int deleteByPrimaryKey(Long id);
 
     int insert(User record);
 
-    int insertSelective(User record);
-
     User selectById(Long id);
 
-    int updateByPrimaryKeySelective(User record);
+    Long selectIdByStr(String str);
 
-    int updateByPrimaryKey(User record);
+    User selectUserByStr(String str);
+
+    void updateLastLogin(Long id, LocalDateTime lastTime);
 }

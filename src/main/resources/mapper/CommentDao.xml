@@ -1,131 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeprobe.butin.repository.CommentDao">
-  <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.Comment">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="article_id" jdbcType="INTEGER" property="articleId" />
-    <result column="author_id" jdbcType="BIGINT" property="authorId" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="to_uid" jdbcType="BIGINT" property="toUid" />
-    <result column="level" jdbcType="BOOLEAN" property="level" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, content, article_id, author_id, parent_id, to_uid, `level`, create_date
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bt_comment
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.Comment">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="article_id" jdbcType="INTEGER" property="articleId"/>
+        <result column="author_id" jdbcType="BIGINT" property="authorId"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <result column="to_uid" jdbcType="BIGINT" property="toUid"/>
+        <result column="level" jdbcType="BOOLEAN" property="level"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , content, article_id, author_id, parent_id, to_uid, `level`, create_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_comment
+        where id = #{id,jdbcType=BIGINT}
+    </select>
 
-  <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from bt_comment
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </select>
+    <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_comment
+        where article_id = #{articleId,jdbcType=BIGINT} AND parent_id = 0
+    </select>
+
+    <select id="selectCommentChildren" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_comment
+        where article_id = #{param1} AND parent_id = #{param2}
+    </select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from bt_comment
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Comment" useGeneratedKeys="true">
-    insert into bt_comment (content, article_id, author_id, 
-      parent_id, to_uid, `level`, 
-      create_date)
-    values (#{content,jdbcType=VARCHAR}, #{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=BIGINT}, 
-      #{parentId,jdbcType=BIGINT}, #{toUid,jdbcType=BIGINT}, #{level,jdbcType=BOOLEAN}, 
-      #{createDate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Comment" useGeneratedKeys="true">
-    insert into bt_comment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="content != null">
-        content,
-      </if>
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="authorId != null">
-        author_id,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="toUid != null">
-        to_uid,
-      </if>
-      <if test="level != null">
-        `level`,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="toUid != null">
-        #{toUid,jdbcType=BIGINT},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=BOOLEAN},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.Comment">
-    update bt_comment
-    <set>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="articleId != null">
-        article_id = #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="authorId != null">
-        author_id = #{authorId,jdbcType=BIGINT},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="toUid != null">
-        to_uid = #{toUid,jdbcType=BIGINT},
-      </if>
-      <if test="level != null">
-        `level` = #{level,jdbcType=BOOLEAN},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.Comment">
-    update bt_comment
-    set content = #{content,jdbcType=VARCHAR},
-      article_id = #{articleId,jdbcType=INTEGER},
-      author_id = #{authorId,jdbcType=BIGINT},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      to_uid = #{toUid,jdbcType=BIGINT},
-      `level` = #{level,jdbcType=BOOLEAN},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from bt_comment
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Comment"
+            useGeneratedKeys="true">
+        insert into bt_comment (content, article_id, author_id,
+                                parent_id, to_uid, `level`,
+                                create_date)
+        values (#{content,jdbcType=VARCHAR}, #{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=BIGINT},
+                #{parentId,jdbcType=BIGINT}, #{toUid,jdbcType=BIGINT}, #{level,jdbcType=BOOLEAN},
+                #{createDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Comment"
+            useGeneratedKeys="true">
+        insert into bt_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null">
+                content,
+            </if>
+            <if test="articleId != null">
+                article_id,
+            </if>
+            <if test="authorId != null">
+                author_id,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="toUid != null">
+                to_uid,
+            </if>
+            <if test="level != null">
+                `level`,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="articleId != null">
+                #{articleId,jdbcType=INTEGER},
+            </if>
+            <if test="authorId != null">
+                #{authorId,jdbcType=BIGINT},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="toUid != null">
+                #{toUid,jdbcType=BIGINT},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=BOOLEAN},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.Comment">
+        update bt_comment
+        <set>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="articleId != null">
+                article_id = #{articleId,jdbcType=INTEGER},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=BIGINT},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="toUid != null">
+                to_uid = #{toUid,jdbcType=BIGINT},
+            </if>
+            <if test="level != null">
+                `level` = #{level,jdbcType=BOOLEAN},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.Comment">
+        update bt_comment
+        set content     = #{content,jdbcType=VARCHAR},
+            article_id  = #{articleId,jdbcType=INTEGER},
+            author_id   = #{authorId,jdbcType=BIGINT},
+            parent_id   = #{parentId,jdbcType=BIGINT},
+            to_uid      = #{toUid,jdbcType=BIGINT},
+            `level`     = #{level,jdbcType=BOOLEAN},
+            create_date = #{createDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByArticleId">
+        update bt_comment
+        set article_id = #{param2}
+        where id in (select id from (select id from bt_comment where article_id = #{param1}) as t)
+    </update>
+
+    <select id="selectParentLevel" parameterType="long" resultType="int">
+        SELECT `level`
+        FROM bt_comment
+        WHERE id = #{parentId}
+    </select>
+
 </mapper>

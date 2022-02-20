@@ -16,6 +16,7 @@
         from bt_tag
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from bt_tag
@@ -24,7 +25,7 @@
 
     <select id="select" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List" />
         FROM bt_tag
     </select>
 
@@ -36,12 +37,12 @@
     </select>
 
     <select id="selectByIds" resultMap="BaseResultMap" parameterType="list">
-        SELECT
-        <include refid="Base_Column_List"></include>
-        FROM bt_tag WHERE id in
-        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+            SELECT
+            <include refid="Base_Column_List" />
+            FROM bt_tag WHERE id in
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
     </select>
 
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.Tag"

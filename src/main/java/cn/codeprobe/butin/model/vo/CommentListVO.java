@@ -1,11 +1,14 @@
-package cn.codeprobe.butin.model.dto;
+package cn.codeprobe.butin.model.vo;
 
+import cn.codeprobe.butin.model.dto.CommentDTO;
+import cn.codeprobe.butin.model.dto.UserDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * bt_comment
@@ -14,7 +17,7 @@ import java.util.Date;
  */
 @ApiModel(value = "cn.codeprobe.butin.model.po.BtComment")
 @Data
-public class CommentDTO implements Serializable {
+public class CommentListVO implements Serializable {
     private Long id;
 
     /**
@@ -40,6 +43,12 @@ public class CommentDTO implements Serializable {
      */
     @ApiModelProperty(value = "评论人")
     private Long parentId;
+
+    /**
+     * 评论人
+     */
+    @ApiModelProperty(value = "评论人")
+    private List<CommentDTO> childrens;
 
     /**
      * 被评论人

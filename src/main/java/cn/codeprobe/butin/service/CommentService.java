@@ -1,6 +1,8 @@
 package cn.codeprobe.butin.service;
 
 import cn.codeprobe.butin.model.dto.CommentDTO;
+import cn.codeprobe.butin.model.vo.CommentListVO;
+import cn.codeprobe.butin.model.vo.CommentPublishVO;
 
 import java.util.List;
 
@@ -10,5 +12,8 @@ import java.util.List;
 
 
 public interface CommentService {
-    List<CommentDTO> findArticleComments(Long articleId);
+
+    List<CommentListVO> findArticleComments(Long articleId);
+
+    CommentDTO createComment(CommentPublishVO commentPublishVO);
 }

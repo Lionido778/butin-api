@@ -4,7 +4,7 @@
 
     <insert id="insert" parameterType="cn.codeprobe.butin.model.po.Action">
         INSERT INTO access (username, ip, url, time)
-        VALUES (#{username}, #{ip}, #{url},#{time})
+        VALUES (#{username}, #{ip}, #{url}, #{time})
     </insert>
 
 </mapper>

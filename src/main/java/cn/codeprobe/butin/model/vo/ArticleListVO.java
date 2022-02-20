@@ -1,20 +1,23 @@
-package cn.codeprobe.butin.model.dto;
+package cn.codeprobe.butin.model.vo;
 
+import cn.codeprobe.butin.model.dto.UserDTO;
+import cn.codeprobe.butin.model.po.Tag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * bt_article
  *
  * @author
  */
-@ApiModel
+@ApiModel(value = "cn.codeprobe.butin.model.po.BtArticle")
 @Data
-public class ArticleDTO implements Serializable {
+public class ArticleListVO implements Serializable {
     private Long id;
 
     /**
@@ -24,16 +27,16 @@ public class ArticleDTO implements Serializable {
     private String title;
 
     /**
-     * 内容id
-     */
-    @ApiModelProperty(value = "内容id")
-    private Long bodyId;
-
-    /**
      * 作者id
      */
     @ApiModelProperty(value = "作者id")
-    private Long authorId;
+    private UserDTO user;
+
+    /**
+     * 标签id
+     */
+    @ApiModelProperty(value = "标签")
+    private List<Tag> tags;
 
     /**
      * 简介

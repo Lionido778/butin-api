@@ -5,11 +5,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher   #解决 Swagger 与 SpringBoot2.6.x 路径策略不一致的问题
-#    # 让404错误抛出异常，需要同时设置 spring.web.resources.add-mappings 为 false
-#    throw-exception-if-no-handler-found: true
-#  web:
-#    resources:
-#      add-mappings: false    # 禁用静态资源的自动映射，如不禁用，不存在的url将被映射到/**，servlet没有机会抛出异常
+  #    # 让404错误抛出异常，需要同时设置 spring.web.resources.add-mappings 为 false
+  #    throw-exception-if-no-handler-found: true
+  #  web:
+  #    resources:
+  #      add-mappings: false    # 禁用静态资源的自动映射，如不禁用，不存在的url将被映射到/**，servlet没有机会抛出异常
   datasource:
     # 数据库连接池 druid
     type: com.alibaba.druid.pool.DruidDataSource
@@ -81,7 +81,7 @@ mybatis:
   type-aliases-package: cn.codeprobe.butin.model.po  # 参数类型的包别名设置  设置这个以后xml映射文件在 parameterType 的值就不用写成全路径名了
   mapper-locations: classpath:mapper/*.xml        # 指向映射xml文件目录
   configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 ## pagehelper分页插件
 pagehelper:

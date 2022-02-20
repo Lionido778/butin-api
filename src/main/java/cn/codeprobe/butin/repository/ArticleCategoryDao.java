@@ -7,19 +7,12 @@ import java.util.List;
 
 @Mapper
 public interface ArticleCategoryDao {
-    int deleteByPrimaryKey(Long id);
 
-    int insert(ArticleCategory record);
-
-    int insertSelective(ArticleCategory record);
-
-    ArticleCategory selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(ArticleCategory record);
-
-    int updateByPrimaryKey(ArticleCategory record);
+    Long insert(ArticleCategory record);
 
     List<Long> selectCategoryByArticleId(Long articleId);
 
     List<Long> selectArticleByCategoryId(Long categoryId);
+
+    Long deleteByModifyDeleted(Long articleId);
 }

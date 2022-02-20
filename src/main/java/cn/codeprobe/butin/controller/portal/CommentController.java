@@ -2,7 +2,7 @@ package cn.codeprobe.butin.controller.portal;
 
 import cn.codeprobe.butin.common.response.R;
 import cn.codeprobe.butin.common.response.Status;
-import cn.codeprobe.butin.model.dto.CommentDTO;
+import cn.codeprobe.butin.model.vo.CommentListVO;
 import cn.codeprobe.butin.service.CommentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +26,9 @@ public class CommentController {
 
     @GetMapping("/comments/article/{articleId}")
     public R getArticleComment(@PathVariable("articleId") Long articleId) {
-        List<CommentDTO> articleComments = commentService.findArticleComments(articleId);
+        List<CommentListVO> articleComments = commentService.findArticleComments(articleId);
         return R.ok(Status.OK).put("data", articleComments);
     }
+
+
 }

@@ -1,84 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeprobe.butin.repository.ArticleBodyDao">
-  <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.ArticleBody">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="article_id" jdbcType="BIGINT" property="articleId" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="content_html" jdbcType="VARCHAR" property="contentHtml" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, article_id, content, content_html
-  </sql>
-  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from bt_article_body
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.ArticleBody">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="content_html" jdbcType="VARCHAR" property="contentHtml"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , content, content_html
+    </sql>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_article_body
+        where id = #{id,jdbcType=BIGINT} AND deleted = 1
+    </select>
 
-  <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from bt_article_body
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </select>
+    <insert id="insert" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleBody"
+            useGeneratedKeys="true">
+        insert into bt_article_body (content, content_html, deleted)
+        values (#{content,jdbcType=VARCHAR}, #{contentHtml,jdbcType=VARCHAR}, #{deleted})
+    </insert>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from bt_article_body
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleBody" useGeneratedKeys="true">
-    insert into bt_article_body (article_id, content, content_html
-      )
-    values (#{articleId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{contentHtml,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleBody" useGeneratedKeys="true">
-    insert into bt_article_body
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="contentHtml != null">
-        content_html,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="contentHtml != null">
-        #{contentHtml,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.ArticleBody">
-    update bt_article_body
-    <set>
-      <if test="articleId != null">
-        article_id = #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="contentHtml != null">
-        content_html = #{contentHtml,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.ArticleBody">
-    update bt_article_body
-    set article_id = #{articleId,jdbcType=BIGINT},
-      content = #{content,jdbcType=VARCHAR},
-      content_html = #{contentHtml,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="deleteByModifyDeleted" parameterType="java.lang.Long">
+        update bt_article_body
+        set deleted = 0
+        where id = #{bodyId}
+    </update>
+
 </mapper>

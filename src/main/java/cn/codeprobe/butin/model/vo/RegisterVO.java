@@ -1,9 +1,10 @@
-package cn.codeprobe.butin.model.dto;
+package cn.codeprobe.butin.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -11,29 +12,23 @@ import java.io.Serializable;
  *
  * @author
  */
-@ApiModel(value = "cn.codeprobe.butin.model.po.BtUser")
+@ApiModel(value = "注册")
 @Data
-public class UserDTO implements Serializable {
-    private Long id;
-
-    /**
-     * 账号
-     */
-    @ApiModelProperty(value = "账号")
-    private String account;
+public class RegisterVO implements Serializable {
 
     /**
      * 昵称
      */
     @ApiModelProperty(value = "昵称")
+    @NotBlank(message = "昵称不可以为空")
     private String nickname;
 
     /**
-     * 头像
+     * 昵称
      */
-    @ApiModelProperty(value = "头像")
-    private String avatar;
-
+    @ApiModelProperty(value = "密码")
+    @NotBlank(message = "密码不可以为空")
+    private String password;
 
     /**
      * 邮箱

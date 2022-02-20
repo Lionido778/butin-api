@@ -43,6 +43,6 @@ spring:
     restart:
       enabled: true     # 开启
       additional-paths: src/main/java   #java下任意文件改动都会重启
-#      trigger-file: reload.java
+    #      trigger-file: reload.java
     livereload:
       enabled: false           # 关闭静态资源 LiveReload 服务器（因为我们是前后端分离）

@@ -24,13 +24,13 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<TagDTO> findTags() {
         List<Tag> tags = tagDao.select();
-        ArrayList<TagDTO> tagDTOS = new ArrayList<>();
+        ArrayList<TagDTO> tagDTOs = new ArrayList<>();
         for (Tag tag : tags) {
             TagDTO tagDTO = new TagDTO();
             BeanUtils.copyProperties(tag, tagDTO);
-            tagDTOS.add(tagDTO);
+            tagDTOs.add(tagDTO);
         }
-        return tagDTOS;
+        return tagDTOs;
     }
 
     @Override

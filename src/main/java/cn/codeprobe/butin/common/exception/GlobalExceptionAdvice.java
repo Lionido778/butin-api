@@ -65,6 +65,7 @@ public class GlobalExceptionAdvice {
      * 捕获未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleRuntimeException(RuntimeException e) {
         return R.error(Status.INTERNAL_ERROR);
     }

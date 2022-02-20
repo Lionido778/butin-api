@@ -47,6 +47,13 @@ public class TagController {
         return R.ok(Status.OK).put("data", tagDTO);
     }
 
+    @ApiOperation("获取所有标签")
+    @GetMapping("/tags")
+    public R getTags() {
+        List<TagDTO> tagDTOs = tagService.findTags();
+        return R.ok(Status.OK).put("data", tagDTOs);
+    }
+
 
     @ApiOperation("获取最热标签")
     @GetMapping("/tags/hot/{rank}")
