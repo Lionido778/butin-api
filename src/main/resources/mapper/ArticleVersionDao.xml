@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.codeprobe.butin.repository.ArticleVersionDao">
+    <resultMap id="BaseResultMap" type="cn.codeprobe.butin.model.po.ArticleVersion">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="old_article_id" jdbcType="BIGINT" property="oldArticleId"/>
+        <result column="new_article_id" jdbcType="BIGINT" property="newArticleId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , old_article_id, new_article_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bt_article_version
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from bt_article_version
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.codeprobe.butin.model.po.ArticleVersion"
+            useGeneratedKeys="true">
+        insert into bt_article_version (old_article_id, new_article_id)
+        values (#{oldArticleId,jdbcType=BIGINT}, #{newArticleId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.codeprobe.butin.model.po.ArticleVersion" useGeneratedKeys="true">
+        insert into bt_article_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oldArticleId != null">
+                old_article_id,
+            </if>
+            <if test="newArticleId != null">
+                new_article_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oldArticleId != null">
+                #{oldArticleId,jdbcType=BIGINT},
+            </if>
+            <if test="newArticleId != null">
+                #{newArticleId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.codeprobe.butin.model.po.ArticleVersion">
+        update bt_article_version
+        <set>
+            <if test="oldArticleId != null">
+                old_article_id = #{oldArticleId,jdbcType=BIGINT},
+            </if>
+            <if test="newArticleId != null">
+                new_article_id = #{newArticleId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.codeprobe.butin.model.po.ArticleVersion">
+        update bt_article_version
+        set old_article_id = #{oldArticleId,jdbcType=BIGINT},
+            new_article_id = #{newArticleId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
